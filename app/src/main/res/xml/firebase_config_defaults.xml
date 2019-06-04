@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<defaultsMap>
+    <entry>
+        <key>server_url</key>
+        <value>https://api.themoviedb.org/3/</value>
+    </entry>
+    <entry>
+        <key>api_key</key>
+        <value>1f54bd990f1cdfb230adb312546d765d</value>
+    </entry>
+    <entry>
+        <key>request_default_language</key>
+        <value>pt-BR</value>
+    </entry>
+    <entry>
+        <key>request_default_region</key>
+        <value>BR</value>
+    </entry>
+    <entry>
+        <key>request_ignore_user_localization</key>
+        <value>true</value>
+    </entry>
+    <entry>
+        <key>poster_url</key>
+        <value>https://image.tmdb.org/t/p/w154</value>
+    </entry>
+    <entry>
+        <key>backdrop_url</key>
+        <value>https://image.tmdb.org/t/p/w780</value>
+    </entry>
+</defaultsMap>

@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Code Challenge</string>
+    <string name="detail_see_backdrop">See backdrop</string>
+    <string name="genres">Genres</string>
+    <string name="detail_release_date">Release Date</string>
+    <string name="detail_overview">Overview</string>
+    <string name="home_search_title">Search</string>
+    <string name="home_search_hint">Search by name</string>
+    <string name="home_empty_view_title">No upcoming movie in your region.</string>
+    <string name="home_empty_view_description">Use the search icon and find more information about movies already released</string>
+    <string name="detail_error_backdrop_unavailable">Backdrop unavailable</string>
+    <string name="detail_error_poster_unavailable">Poster unavailable</string>
+</resources>

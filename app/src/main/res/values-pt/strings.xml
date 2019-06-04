@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Desafio de Código</string>
+    <string name="detail_see_backdrop">Ver pôster expandido</string>
+    <string name="genres">Gêneros</string>
+    <string name="detail_release_date">Data de Lançamento</string>
+    <string name="detail_overview">Sinopse</string>
+    <string name="home_search_title">Procurar</string>
+    <string name="home_search_hint">Busca por nome</string>
+    <string name="home_empty_view_title">Nenhum filme com lançamento previsto na sua região</string>
+    <string name="home_empty_view_description">Utilize a busca e encontre mais informações sobre filmes já lançados</string>
+    <string name="detail_error_backdrop_unavailable">Pôster expandido não disponível</string>
+    <string name="detail_error_poster_unavailable">Pôster não disponível</string>
+</resources>

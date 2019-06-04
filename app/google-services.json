@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "680837681688",
+    "firebase_url": "https://movie-database-efed7.firebaseio.com",
+    "project_id": "movie-database-efed7",
+    "storage_bucket": "movie-database-efed7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:680837681688:android:9e603aaf79290d3c",
+        "android_client_info": {
+          "package_name": "com.guilhermelucas.moviedatabase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "680837681688-q94dgor5fiqiejphjhcanmka44lanll8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDG4hg4qHhN6fGiA4TuPpjiEza7pMkgmC0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "680837681688-q94dgor5fiqiejphjhcanmka44lanll8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
