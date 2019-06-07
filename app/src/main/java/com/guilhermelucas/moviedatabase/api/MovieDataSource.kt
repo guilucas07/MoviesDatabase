@@ -3,6 +3,7 @@ package com.guilhermelucas.moviedatabase.api
 import com.guilhermelucas.moviedatabase.data.Cache
 import com.guilhermelucas.moviedatabase.model.Genre
 import com.guilhermelucas.moviedatabase.model.Movie
+import com.guilhermelucas.moviedatabase.model.MoviesSearchResponse
 import com.squareup.moshi.FromJson
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.ToJson
@@ -24,12 +25,12 @@ class MovieDataSource private constructor() {
     private var dataSourceSettings = MovieDataSourceSettings()
 
     private val tmdbApi: TmdbApi = Retrofit.Builder()
-            .baseUrl(dataSourceSettings.getServerUrl())
-            .client(OkHttpClient.Builder().build())
-            .addConverterFactory(MoshiConverterFactory.create(moshi.build()))
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .build()
-            .create(TmdbApi::class.java)
+        .baseUrl(dataSourceSettings.getServerUrl())
+        .client(OkHttpClient.Builder().build())
+        .addConverterFactory(MoshiConverterFactory.create(moshi.build()))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(TmdbApi::class.java)
 
     companion object {
         val instance = MovieDataSource()
@@ -38,13 +39,13 @@ class MovieDataSource private constructor() {
     fun getGenres(): Observable<List<Genre>> = Observable.create<List<Genre>> { emitter ->
         if (Cache.genres.isEmpty())
             tmdbApi.genres(dataSourceSettings.getApiKey(), dataSourceSettings.getLanguage())
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe {
-                        Cache.cacheGenres(it.genres)
-                        emitter.onNext(it.genres)
-                        emitter.onComplete()
-                    }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {
+                    Cache.cacheGenres(it.genres)
+                    emitter.onNext(it.genres)
+                    emitter.onComplete()
+                }
         else {
             emitter.onNext(Cache.genres)
             emitter.onComplete()
@@ -61,41 +62,46 @@ class MovieDataSource private constructor() {
         }
 
         tmdbApi.movie(movieId, dataSourceSettings.getApiKey(), dataSourceSettings.getLanguage())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { movie ->
-                    Cache.cacheMovies(movie)
-                    emitter.onNext(movie)
-                    emitter.onComplete()
-                }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { movie ->
+                Cache.cacheMovies(movie)
+                emitter.onNext(movie)
+                emitter.onComplete()
+            }
     }
 
-    fun getMovie(fullOrPartialName: String): Observable<List<Movie>> = Observable.create { emitter ->
-        tmdbApi.searchMovie(fullOrPartialName, dataSourceSettings.getApiKey(), dataSourceSettings.getLanguage())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { movie ->
-                    if (movie.results.isNotEmpty()) {
-                        Cache.cacheMovies(movie.results)
-                        emitter.onNext(movie.results)
-                    }
-                    emitter.onComplete()
-                }
+    fun getMovie(fullOrPartialName: String): Observable<List<Movie>> {
+        return tmdbApi
+            .searchMovie(fullOrPartialName, dataSourceSettings.getApiKey(), dataSourceSettings.getLanguage())
+            .map { moviesSearchResponse: MoviesSearchResponse ->
+                moviesSearchResponse.results
+            }
     }
 
     fun getUpcomingMovies(page: Int = 1): Observable<List<Movie>> = Observable.create { emitter ->
-        tmdbApi.upcomingMovies(dataSourceSettings.getApiKey(), dataSourceSettings.getLanguage(), page, dataSourceSettings.getRegion())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
-                    Cache.cacheMovies(it.results)
-                    emitter.onNext(it.results)
-                    emitter.onComplete()
-                }
+        tmdbApi.upcomingMovies(
+            dataSourceSettings.getApiKey(),
+            dataSourceSettings.getLanguage(),
+            page,
+            dataSourceSettings.getRegion()
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                Cache.cacheMovies(it.results)
+                emitter.onNext(it.results)
+                emitter.onComplete()
+            }
     }
 
     fun getDiscoveryMovies(page: Int = 1): Observable<List<Movie>> = Observable.create { emitter ->
-        tmdbApi.discoveryMovies(dataSourceSettings.getApiKey(), dataSourceSettings.getLanguage(), page, dataSourceSettings.getRegion())
+        tmdbApi.discoveryMovies(
+            dataSourceSettings.getApiKey(),
+            dataSourceSettings.getLanguage(),
+            page,
+            dataSourceSettings.getRegion()
+        )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
@@ -107,14 +113,19 @@ class MovieDataSource private constructor() {
 
 
     fun getTopRatedMovies(page: Int = 1): Observable<List<Movie>> = Observable.create { emitter ->
-        tmdbApi.topRatedMovies(dataSourceSettings.getApiKey(), dataSourceSettings.getLanguage(), page, dataSourceSettings.getRegion())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
-                    Cache.cacheMovies(it.results)
-                    emitter.onNext(it.results)
-                    emitter.onComplete()
-                }
+        tmdbApi.topRatedMovies(
+            dataSourceSettings.getApiKey(),
+            dataSourceSettings.getLanguage(),
+            page,
+            dataSourceSettings.getRegion()
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                Cache.cacheMovies(it.results)
+                emitter.onNext(it.results)
+                emitter.onComplete()
+            }
     }
 
     private class CustomDateAdapter {

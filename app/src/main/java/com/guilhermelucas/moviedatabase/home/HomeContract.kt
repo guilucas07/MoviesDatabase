@@ -6,10 +6,11 @@ import com.guilhermelucas.moviedatabase.model.MovieVO
 
 interface HomeContract {
     interface View : BaseView {
-        fun onLoadMovies(movies: List<MovieVO>)
+        fun onLoadMovies(movies: List<HomeRepository.AdapterItem>)
         fun goToDetail(movie: MovieVO)
         fun loading(visible: Boolean)
         fun clearAdapterItems()
+        fun moviesLoaded()
     }
 
     interface Presenter : BasePresenter<View> {

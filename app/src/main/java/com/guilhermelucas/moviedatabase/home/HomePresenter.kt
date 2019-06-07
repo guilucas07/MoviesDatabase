@@ -1,17 +1,23 @@
 package com.guilhermelucas.moviedatabase.home
 
-import com.guilhermelucas.moviedatabase.model.Movie
+import android.util.Log
 import com.guilhermelucas.moviedatabase.model.MovieVO
 import com.guilhermelucas.moviedatabase.util.MovieImageUrlBuilder
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 
-class HomePresenter(private val repository: HomeRepository,
-                    private val imageUrlBuilder: MovieImageUrlBuilder) : HomeContract.Presenter {
+class HomePresenter(
+    private val repository: HomeRepository,
+    private val imageUrlBuilder: MovieImageUrlBuilder
+) : HomeContract.Presenter {
 
     private var view: HomeContract.View? = null
     private var compositeDisposable = CompositeDisposable()
     private var activityMode = ActivityMode.DEFAULT
     private var isLoading = false
+    private var repositoryRequestStrategy = HomeRepository.RequestStrategy.FIRST_PAGE
+
 
     /*****************************/
     /**     Private objects     **/
@@ -62,14 +68,14 @@ class HomePresenter(private val repository: HomeRepository,
 
     override fun searchMovie(partialName: String) {
         if (partialName.length >= Constants.SEARCH_MIN_LETTERS) {
-            val disposable = repository.getMovie(partialName).subscribe { listMovies ->
-                view?.clearAdapterItems()
-                val listMovieVO = listMovies.map { movie ->
-                    convertToMovieVO(movie)
+            val disposable = repository.getMovie(partialName)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe { listMovies ->
+                    view?.clearAdapterItems()
+                    view?.onLoadMovies(listMovies)
+                    activityMode = ActivityMode.SEARCH
                 }
-                view?.onLoadMovies(listMovieVO)
-                activityMode = ActivityMode.SEARCH
-            }
             compositeDisposable.add(disposable)
         }
     }
@@ -82,27 +88,38 @@ class HomePresenter(private val repository: HomeRepository,
         if (!isLoading) {
             isLoading = true
             view?.loading(isLoading)
-            val disposable = repository.getDiscoveryMovies(repositoryRequestStrategy).subscribe {
-                val listMovieVO = it.map { movie -> convertToMovieVO(movie) }
 
-                if (repositoryRequestStrategy == HomeRepository.RequestStrategy.FIRST_PAGE)
-                    view?.clearAdapterItems()
+            this.repositoryRequestStrategy = repositoryRequestStrategy
 
-                view?.onLoadMovies(listMovieVO)
+            val observer =
+                repository.loadMoreData(repositoryRequestStrategy)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .doOnNext {
+                        Log.d("homePresenter", "log a doOnNext")
+                        if (repositoryRequestStrategy == HomeRepository.RequestStrategy.FIRST_PAGE)
+                            view?.clearAdapterItems()
 
-                activityMode = ActivityMode.DEFAULT
-                isLoading = false
-                view?.loading(isLoading)
-            }
-            compositeDisposable.add(disposable)
+                        view?.onLoadMovies(it)
+
+                        activityMode = ActivityMode.DEFAULT
+                        isLoading = false
+                        view?.loading(isLoading)
+
+                    }.doOnComplete {
+                        Log.d("homePresenter", "log a doOnComplete")
+                        activityMode = ActivityMode.DEFAULT
+                        isLoading = false
+                        view?.loading(isLoading)
+
+                    }.doOnError {
+                        Log.d("homePresenter", "log a doOnError $it")
+
+                        activityMode = ActivityMode.DEFAULT
+                        isLoading = false
+                        view?.loading(isLoading)
+                    }.subscribe()
+            compositeDisposable.add(observer)
+
         }
-    }
-
-    private fun convertToMovieVO(movie: Movie): MovieVO {
-        val posterUrl =
-                if (movie.posterPath != null) imageUrlBuilder.buildPosterUrl(movie.posterPath) else null
-        val backdropUrl =
-                if (movie.backdropPath != null) imageUrlBuilder.buildBackdropUrl(movie.backdropPath) else null
-        return MovieVO(movie.id, movie.title, movie.overview, movie.genres, movie.voteAverage, posterUrl, backdropUrl, movie.releaseDate)
     }
 }

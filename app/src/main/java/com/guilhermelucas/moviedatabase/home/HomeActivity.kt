@@ -2,21 +2,18 @@ package com.guilhermelucas.moviedatabase.home
 
 import android.app.SearchManager
 import android.content.Context
-import android.content.Intent
 import android.nfc.tech.MifareUltralight.PAGE_SIZE
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.SearchView
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import com.guilhermelucas.moviedatabase.R
 import com.guilhermelucas.moviedatabase.api.MovieDataSource
 import com.guilhermelucas.moviedatabase.base.BaseActivity
-import com.guilhermelucas.moviedatabase.detail.DetailActivity
 import com.guilhermelucas.moviedatabase.firebase.RemoteConfig
 import com.guilhermelucas.moviedatabase.model.MovieVO
 import com.guilhermelucas.moviedatabase.util.MovieImageUrlBuilder
@@ -37,7 +34,7 @@ class HomeActivity : BaseActivity(), HomeContract.View, HomeAdapter.MovieClickLi
         super.onCreate(savedInstanceState)
         setContentView(R.layout.home_activity)
 
-        val repository = HomeRepository(MovieDataSource.instance)
+        val repository = HomeRepository(MovieImageUrlBuilder(RemoteConfig.instance),MovieDataSource.instance)
         presenter = HomePresenter(repository, MovieImageUrlBuilder(RemoteConfig.instance))
         presenter.attachView(this)
 
@@ -59,26 +56,26 @@ class HomeActivity : BaseActivity(), HomeContract.View, HomeAdapter.MovieClickLi
     /******************************************/
     /**  Override HomeContract.View methods  **/
     /******************************************/
-
-    override fun onLoadMovies(movies: List<MovieVO>) {
-        loadingMoreItems = false
+    override fun onLoadMovies(movies: List<HomeRepository.AdapterItem>) {
         adapter.addMoreItems(movies)
-        swipeRefreshMovies.isRefreshing = false
-        progressBar.visibility = View.GONE
 
         verifyRecyclerViewVisibility()
     }
 
 
     override fun goToDetail(movie: MovieVO) {
-        val intent = Intent(baseContext, DetailActivity::class.java).apply {
-            putExtra(DetailActivity.ExtraParam.ITEM_ID, movie.id)
-        }
-
-        startActivity(intent)
+//        val intent = Intent(baseContext, DetailActivity::class.java).apply {
+//            putExtra(DetailActivity.ExtraParam.ITEM_ID, movie.id)
+//        }
+//
+//        startActivity(intent)
     }
 
     override fun loading(visible: Boolean) {
+        loadingMoreItems = visible
+        swipeRefreshMovies.isRefreshing = visible
+//        progressBar.visibility = View.GONE
+
         progressBar.visibility = when (visible) {
             true -> View.VISIBLE
             else -> View.GONE
@@ -87,6 +84,10 @@ class HomeActivity : BaseActivity(), HomeContract.View, HomeAdapter.MovieClickLi
 
     override fun clearAdapterItems() {
         adapter.clearItems()
+    }
+
+    override fun moviesLoaded() {
+        adapter.notifyDataSetChanged()
     }
 
     /******************************************/
