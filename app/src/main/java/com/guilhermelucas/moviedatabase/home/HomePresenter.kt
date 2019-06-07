@@ -1,5 +1,6 @@
 package com.guilhermelucas.moviedatabase.home
 
+import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterAdItem
 import com.guilhermelucas.moviedatabase.model.MovieVO
 import com.guilhermelucas.moviedatabase.util.MovieImageUrlBuilder
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -57,7 +58,7 @@ class HomePresenter(
 
     override fun getSpanSize(adapterPosition : Int) : Int {
         val adapterItem = repository.getAdapterItem(adapterPosition)
-        if(adapterItem is HomeRepository.AdapterAdItem)
+        if(adapterItem is AdapterAdItem)
             return 2
         else
             return 1

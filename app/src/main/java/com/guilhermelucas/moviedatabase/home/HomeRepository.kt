@@ -2,14 +2,15 @@ package com.guilhermelucas.moviedatabase.home
 
 import com.guilhermelucas.moviedatabase.api.MovieDataSource
 import com.guilhermelucas.moviedatabase.data.Cache
+import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterAdItem
+import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterItem
+import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterMovieItem
 import com.guilhermelucas.moviedatabase.model.Genre
 import com.guilhermelucas.moviedatabase.model.Movie
 import com.guilhermelucas.moviedatabase.model.MovieVO
 import com.guilhermelucas.moviedatabase.util.MovieImageUrlBuilder
 import io.reactivex.Observable
 import io.reactivex.functions.BiFunction
-import java.util.*
-import kotlin.collections.ArrayList
 
 class HomeRepository(private val imageUrlBuilder: MovieImageUrlBuilder, private val movieDataSource: MovieDataSource) {
 
@@ -85,9 +86,9 @@ class HomeRepository(private val imageUrlBuilder: MovieImageUrlBuilder, private 
     }
 
     private fun inflateAdapterItem(movie: Movie) {
-        if ((loadedItems.size + 1) % 5 == 0)
+        loadedItems.add(AdapterMovieItem(convertToMovieVO(movie)))
+        if (loadedItems.size % 4 == 0)
             loadedItems.add(AdapterAdItem())
-
         loadedItems.add(AdapterMovieItem(convertToMovieVO(movie)))
     }
 
@@ -98,23 +99,6 @@ class HomeRepository(private val imageUrlBuilder: MovieImageUrlBuilder, private 
     }
 
     private val loadedItems = ArrayList<AdapterItem>()
-
-    abstract class AdapterItem {
-        abstract val title: String
-    }
-
-    class AdapterMovieItem(val movie: MovieVO) : AdapterItem() {
-        override val title: String
-            get() = movie.title
-
-    }
-
-    class AdapterAdItem : AdapterItem() {
-        override val title: String
-            get() = "Marvel Add"
-
-        val time = Date().time
-    }
 
     private fun convertToMovieVO(movie: Movie): MovieVO {
         val posterUrl =

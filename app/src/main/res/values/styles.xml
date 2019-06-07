@@ -12,22 +12,34 @@
         <item name="android:textSize">14sp</item>
     </style>
 
-    <style name="Text.Heading.Large" parent="AppTheme">
-        <item name="android:textColor">@color/md_black_1000</item>
-        <item name="android:fontFamily">sans-serif-bold</item>
-        <item name="android:textSize">28sp</item>
-    </style>
 
-    <style name="Text.Heading.Medium" parent="AppTheme">
+    <style name="Text.Heading" parent="AppTheme">
         <item name="android:textColor">@color/md_black_1000</item>
-        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:textSize">24sp</item>
     </style>
 
-    <style name="Text.Heading.Small" parent="AppTheme">
+    <style name="Text.Heading.Large" parent="Text.Heading">
+        <item name="android:textSize">28sp</item>
+    </style>
+
+    <style name="Text.Heading.Small" parent="Text.Heading">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="Text.Caption" parent="AppTheme">
         <item name="android:textColor">@color/md_black_1000</item>
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="Text.Caption.Small" parent="Text.Caption">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+
+    <style name="Text.Caption.Large" parent="Text.Caption">
+        <item name="android:textSize">24sp</item>
     </style>
 
     <style name="Button.Ghost" parent="Widget.AppCompat.Button">

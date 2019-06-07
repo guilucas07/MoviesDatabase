@@ -16,6 +16,7 @@ import com.guilhermelucas.moviedatabase.api.MovieDataSource
 import com.guilhermelucas.moviedatabase.base.BaseActivity
 import com.guilhermelucas.moviedatabase.firebase.RemoteConfig
 import com.guilhermelucas.moviedatabase.home.adapter.HomeAdapter
+import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterItem
 import com.guilhermelucas.moviedatabase.model.MovieVO
 import com.guilhermelucas.moviedatabase.util.MovieImageUrlBuilder
 import kotlinx.android.synthetic.main.home_activity.*
@@ -57,7 +58,7 @@ class HomeActivity : BaseActivity(), HomeContract.View, HomeAdapter.MovieClickLi
     /******************************************/
     /**  Override HomeContract.View methods  **/
     /******************************************/
-    override fun onLoadMovies(movies: List<HomeRepository.AdapterItem>) {
+    override fun onLoadMovies(movies: List<AdapterItem>) {
         adapter.addMoreItems(movies)
 
         verifyRecyclerViewVisibility()

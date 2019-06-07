@@ -1,19 +1,19 @@
-package com.guilhermelucas.moviedatabase.home.adapter
+package com.guilhermelucas.moviedatabase.home.adapter.item
 
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.guilhermelucas.moviedatabase.R
-import com.guilhermelucas.moviedatabase.home.HomeRepository
+import com.guilhermelucas.moviedatabase.home.adapter.HomeAdapter
 import kotlinx.android.synthetic.main.movie_item.view.*
 import java.text.DateFormat
 
-class HomeAdapterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    fun bind(adapterItem: HomeRepository.AdapterItem, clickListener: HomeAdapter.MovieClickListener) {
+    fun bind(adapterItem: AdapterItem, clickListener: HomeAdapter.MovieClickListener) {
         when (adapterItem) {
-            is HomeRepository.AdapterMovieItem -> {
+            is AdapterMovieItem -> {
                 val movie = adapterItem.movie
                 itemView.textMovieTitle.text = movie.title
 
