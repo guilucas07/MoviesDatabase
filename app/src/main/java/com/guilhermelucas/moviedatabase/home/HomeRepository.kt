@@ -77,9 +77,9 @@ class HomeRepository(
         return savedAds[loadedItems.size % 2]
     }
 
-    private val savedAds = arrayListOf<AdapterAdItem>(
-        AdapterAdItem("Confira todos os filmes da Marvel", "Confira"),
-        AdapterAdItem("Confira todos os filmes da DC", "Confira")
+    private val savedAds = arrayListOf(
+        AdapterAdItem("Confira todos os filmes da Marvel", "Confira", "marvel"),
+        AdapterAdItem("Confira todos os filmes da DC", "Confira", "dc")
     )
 
     fun getAdapterItem(position: Int): AdapterItem? {
