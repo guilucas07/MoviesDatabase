@@ -75,12 +75,6 @@ class HomeActivity : BaseActivity(), HomeContract.View, HomeAdapter.MovieClickLi
     override fun loading(visible: Boolean) {
         loadingMoreItems = visible
         swipeRefreshMovies.isRefreshing = visible
-//        progressBar.visibility = View.GONE
-
-        progressBar.visibility = when (visible) {
-            true -> View.VISIBLE
-            else -> View.GONE
-        }
     }
 
     override fun clearAdapterItems() {
@@ -183,9 +177,7 @@ class HomeActivity : BaseActivity(), HomeContract.View, HomeAdapter.MovieClickLi
             layoutEmptyMovies.visibility = View.VISIBLE
             recyclerViewMovies.visibility = View.GONE
         }
-
     }
-
 }
 
 
