@@ -22,11 +22,13 @@ import com.guilhermelucas.moviedatabase.util.MovieImageUrlBuilder
 import kotlinx.android.synthetic.main.home_activity.*
 import android.util.Pair as UtilPair
 
-class HomeActivity : BaseActivity(), HomeContract.View, HomeAdapter.MovieClickListener {
+class HomeActivity : BaseActivity(), HomeContract.View {
 
     private lateinit var presenter: HomePresenter
     private var loadingMoreItems = false
-    private var adapter = HomeAdapter(arrayListOf(), this)
+    private val adapter = HomeAdapter(arrayListOf()) {
+        presenter.onItemClick(it)
+    }
     private var searchViewMenu: MenuItem? = null
 
     /******************************************/
@@ -78,20 +80,8 @@ class HomeActivity : BaseActivity(), HomeContract.View, HomeAdapter.MovieClickLi
         swipeRefreshMovies.isRefreshing = visible
     }
 
-    override fun clearAdapterItems() {
-        adapter.clearItems()
-    }
-
     override fun moviesLoaded() {
         adapter.notifyDataSetChanged()
-    }
-
-    /******************************************/
-    /**  Override MovieClickListener method  **/
-    /******************************************/
-
-    override fun onMovieClick(movie: MovieVO) {
-        presenter.onItemClick(movie)
     }
 
     /******************************************/
@@ -127,7 +117,6 @@ class HomeActivity : BaseActivity(), HomeContract.View, HomeAdapter.MovieClickLi
             }
 
         })
-
     }
 
     private fun initSwipeRefresh() {

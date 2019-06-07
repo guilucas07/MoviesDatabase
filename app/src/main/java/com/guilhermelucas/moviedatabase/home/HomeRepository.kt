@@ -11,35 +11,17 @@ import com.guilhermelucas.moviedatabase.model.MovieVO
 import com.guilhermelucas.moviedatabase.util.MovieImageUrlBuilder
 import io.reactivex.Observable
 import io.reactivex.functions.BiFunction
+import java.util.*
 
-class HomeRepository(private val imageUrlBuilder: MovieImageUrlBuilder, private val movieDataSource: MovieDataSource) {
+class HomeRepository(
+    private val imageUrlBuilder: MovieImageUrlBuilder,
+    private val movieDataSource: MovieDataSource
+) {
 
     private var actualPage: Int = 0
 
     enum class RequestStrategy {
         FIRST_PAGE, NEXT_PAGE
-    }
-
-    fun getUpcomingMovies(requestStrategy: RequestStrategy = RequestStrategy.NEXT_PAGE): Observable<List<Movie>> {
-
-        val request = when (requestStrategy) {
-            RequestStrategy.NEXT_PAGE -> actualPage + 1
-            else -> 1
-        }
-        val genresObservable = movieDataSource.getGenres()
-        val upcomingMoviesObservable = movieDataSource.getUpcomingMovies(request)
-
-        return Observable.zip<List<Genre>, List<Movie>, List<Movie>>(
-            genresObservable,
-            upcomingMoviesObservable,
-            BiFunction<List<Genre>, List<Movie>, List<Movie>> { genres, movies ->
-                actualPage++
-                val moviesWithGenres = movies.map { movie ->
-                    movie.copy(genres = genres.filter { movie.genreIds?.contains(it.id) == true })
-                }
-                Cache.cacheMovies(moviesWithGenres)
-                moviesWithGenres
-            })
     }
 
     fun getMovie(partialName: String): Observable<List<AdapterItem>> {
@@ -87,10 +69,18 @@ class HomeRepository(private val imageUrlBuilder: MovieImageUrlBuilder, private 
 
     private fun inflateAdapterItem(movie: Movie) {
         loadedItems.add(AdapterMovieItem(convertToMovieVO(movie)))
-        if (loadedItems.size % 4 == 0)
-            loadedItems.add(AdapterAdItem())
-        loadedItems.add(AdapterMovieItem(convertToMovieVO(movie)))
+        if ((loadedItems.size + 1) % 5 == 0)
+            loadedItems.add(getNextAdItem())
     }
+
+    private fun getNextAdItem(): AdapterAdItem {
+        return savedAds[loadedItems.size % 2]
+    }
+
+    private val savedAds = arrayListOf<AdapterAdItem>(
+        AdapterAdItem("Confira todos os filmes da Marvel", "Confira"),
+        AdapterAdItem("Confira todos os filmes da DC", "Confira")
+    )
 
     fun getAdapterItem(position: Int): AdapterItem? {
         if (position < loadedItems.size)

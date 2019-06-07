@@ -1,7 +1,3 @@
 package com.guilhermelucas.moviedatabase.home.adapter.item
 
-class AdapterAdItem : AdapterItem() {
-    override val title: String
-        get() = "Marvel Add"
-
-}
+class AdapterAdItem(val title: String, val callToActionText: String) : AdapterItem()

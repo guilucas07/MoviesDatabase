@@ -10,13 +10,12 @@ interface HomeContract {
         fun onLoadMovies(movies: List<AdapterItem>)
         fun goToDetail(movie: MovieVO)
         fun loading(visible: Boolean)
-        fun clearAdapterItems()
         fun moviesLoaded()
     }
 
     interface Presenter : BasePresenter<View> {
         fun onResume()
-        fun onItemClick(movie: MovieVO)
+        fun onItemClick(position: Int)
         fun loadMoreItems()
         fun onSwipeToRefresh()
         fun searchMovie(partialName: String)

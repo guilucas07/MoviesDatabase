@@ -4,21 +4,13 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.guilhermelucas.moviedatabase.R
-import com.guilhermelucas.moviedatabase.home.adapter.item.AdViewHolder
-import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterAdItem
-import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterItem
-import com.guilhermelucas.moviedatabase.home.adapter.item.MovieViewHolder
-import com.guilhermelucas.moviedatabase.model.MovieVO
+import com.guilhermelucas.moviedatabase.home.adapter.item.*
 
 class HomeAdapter(
-    private val movies: ArrayList<AdapterItem>,
-    private val clickListener: MovieClickListener
+    private var movies: List<AdapterItem>,
+    private val clickListener: (position: Int) -> Unit
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-
-    interface MovieClickListener {
-        fun onMovieClick(movie: MovieVO)
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == 0) {
@@ -38,20 +30,13 @@ class HomeAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is MovieViewHolder)
-            return holder.bind(movies[position], clickListener)
+            return holder.bind(movies[position] as AdapterMovieItem, clickListener)
         else if (holder is AdViewHolder)
-            return holder.bind(movies[position]) {
-                //nothing yet
-            }
+            return holder.bind(movies[position] as AdapterAdItem, clickListener)
     }
 
     fun addMoreItems(newMovies: List<AdapterItem>) {
-        movies.addAll(newMovies)
-        notifyDataSetChanged()
-    }
-
-    fun clearItems() {
-        movies.clear()
+        movies = newMovies
         notifyDataSetChanged()
     }
 }

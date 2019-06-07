@@ -1,6 +1,9 @@
 package com.guilhermelucas.moviedatabase.home
 
+import android.util.Log
 import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterAdItem
+import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterMovieItem
+import com.guilhermelucas.moviedatabase.home.adapter.item.MovieViewHolder
 import com.guilhermelucas.moviedatabase.model.MovieVO
 import com.guilhermelucas.moviedatabase.util.MovieImageUrlBuilder
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -46,8 +49,12 @@ class HomePresenter(
         compositeDisposable.clear()
     }
 
-    override fun onItemClick(movie: MovieVO) {
-        view?.goToDetail(movie)
+    override fun onItemClick(position: Int) {
+        val adapterItem = repository.getAdapterItem(position)
+        adapterItem?.run {
+            if (this is AdapterMovieItem)
+                view?.goToDetail(this.movie)
+        }
     }
 
     override fun loadMoreItems() {
@@ -56,12 +63,15 @@ class HomePresenter(
         }
     }
 
-    override fun getSpanSize(adapterPosition : Int) : Int {
-        val adapterItem = repository.getAdapterItem(adapterPosition)
-        if(adapterItem is AdapterAdItem)
-            return 2
+    override fun getSpanSize(adapterPosition: Int): Int {
+        val adapterItem = repository.getAdapterItem(adapterPosition)!!
+        val span = if (adapterItem is AdapterAdItem)
+            2
         else
-            return 1
+            1
+
+        Log.d("spanSize", "spansize $adapterPosition ${adapterItem is AdapterAdItem} $span")
+        return span
     }
 
     override fun onSwipeToRefresh() {
@@ -79,7 +89,6 @@ class HomePresenter(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe { listMovies ->
-                    view?.clearAdapterItems()
                     view?.onLoadMovies(listMovies)
                     activityMode = ActivityMode.SEARCH
                 }
@@ -102,9 +111,6 @@ class HomePresenter(
                 repository.loadMoreData(repositoryRequestStrategy)
                     .observeOn(AndroidSchedulers.mainThread())
                     .doOnNext {
-                        if (repositoryRequestStrategy == HomeRepository.RequestStrategy.FIRST_PAGE)
-                            view?.clearAdapterItems()
-
                         view?.onLoadMovies(it)
 
                         activityMode = ActivityMode.DEFAULT

@@ -1,6 +1,7 @@
 package com.guilhermelucas.moviedatabase.home.adapter.item
 
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.View
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -9,8 +10,10 @@ import kotlinx.android.synthetic.main.adapter_ad_item.view.*
 
 class AdViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    fun bind(adapterItem: AdapterItem, clickListener: (position: Int) -> Unit) {
+    fun bind(adapterItem: AdapterAdItem, clickListener: (position: Int) -> Unit) {
+
         itemView.textAdTitle.text = adapterItem.title
+        itemView.textAdAction.text = adapterItem.callToActionText
         itemView.setOnClickListener {
             clickListener(adapterPosition)
         }
