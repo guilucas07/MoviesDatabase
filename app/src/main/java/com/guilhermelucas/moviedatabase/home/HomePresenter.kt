@@ -1,11 +1,7 @@
 package com.guilhermelucas.moviedatabase.home
 
-import android.util.Log
 import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterAdItem
 import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterMovieItem
-import com.guilhermelucas.moviedatabase.home.adapter.item.MovieViewHolder
-import com.guilhermelucas.moviedatabase.model.MovieVO
-import com.guilhermelucas.moviedatabase.util.MovieImageUrlBuilder
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -65,13 +61,7 @@ class HomePresenter(
 
     override fun getSpanSize(adapterPosition: Int): Int {
         val adapterItem = repository.getAdapterItem(adapterPosition)!!
-        val span = if (adapterItem is AdapterAdItem)
-            2
-        else
-            1
-
-        Log.d("spanSize", "spansize $adapterPosition ${adapterItem is AdapterAdItem} $span")
-        return span
+        return if (adapterItem is AdapterAdItem) 2 else 1
     }
 
     override fun onSwipeToRefresh() {
