@@ -41,6 +41,10 @@ class HomeAdapterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) 
             }
             else -> {
                 itemView.textMovieTitle.text = adapterItem.title
+                Glide.with(itemView)
+                    .load(itemView.context.getDrawable(R.drawable.ic_image_placeholder))
+                    .apply(RequestOptions().placeholder(R.drawable.ic_image_placeholder))
+                    .into(itemView.imageMoviePoster)
             }
         }
 

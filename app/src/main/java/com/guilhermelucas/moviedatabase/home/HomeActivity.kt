@@ -35,8 +35,8 @@ class HomeActivity : BaseActivity(), HomeContract.View, HomeAdapter.MovieClickLi
         super.onCreate(savedInstanceState)
         setContentView(R.layout.home_activity)
 
-        val repository = HomeRepository(MovieImageUrlBuilder(RemoteConfig.instance),MovieDataSource.instance)
-        presenter = HomePresenter(repository, MovieImageUrlBuilder(RemoteConfig.instance))
+        val repository = HomeRepository(MovieImageUrlBuilder(RemoteConfig.instance), MovieDataSource.instance)
+        presenter = HomePresenter(repository)
         presenter.attachView(this)
 
         initSwipeRefresh()
@@ -163,7 +163,7 @@ class HomeActivity : BaseActivity(), HomeContract.View, HomeAdapter.MovieClickLi
         val gridLayoutManager = GridLayoutManager(baseContext, 2, LinearLayoutManager.VERTICAL, false)
         gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
-                return if ((position + 1) % 5 == 0) 2 else 1
+                return presenter.getSpanSize(position)
             }
         }
         recyclerViewMovies.layoutManager = gridLayoutManager

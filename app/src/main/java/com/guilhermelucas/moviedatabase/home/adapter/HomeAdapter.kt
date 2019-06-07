@@ -1,11 +1,17 @@
 package com.guilhermelucas.moviedatabase.home.adapter
 
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.guilhermelucas.moviedatabase.R
 import com.guilhermelucas.moviedatabase.home.HomeRepository
 import com.guilhermelucas.moviedatabase.model.MovieVO
+import kotlinx.android.synthetic.main.movie_item.view.*
+import java.text.DateFormat
 
 class HomeAdapter(
     private val movies: ArrayList<HomeRepository.AdapterItem>,
@@ -29,6 +35,7 @@ class HomeAdapter(
     fun addMoreItems(newMovies: List<HomeRepository.AdapterItem>) {
         movies.addAll(newMovies)
         notifyDataSetChanged()
+        Log.d("ImprimirFilmes", "ImprimirF AddMoreItem ${movies.size}" )
     }
 
     fun clearItems() {

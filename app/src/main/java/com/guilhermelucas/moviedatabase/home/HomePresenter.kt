@@ -1,6 +1,5 @@
 package com.guilhermelucas.moviedatabase.home
 
-import android.util.Log
 import com.guilhermelucas.moviedatabase.model.MovieVO
 import com.guilhermelucas.moviedatabase.util.MovieImageUrlBuilder
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -8,8 +7,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
 class HomePresenter(
-    private val repository: HomeRepository,
-    private val imageUrlBuilder: MovieImageUrlBuilder
+    private val repository: HomeRepository
 ) : HomeContract.Presenter {
 
     private var view: HomeContract.View? = null
@@ -57,6 +55,14 @@ class HomePresenter(
         }
     }
 
+    override fun getSpanSize(adapterPosition : Int) : Int {
+        val adapterItem = repository.getAdapterItem(adapterPosition)
+        if(adapterItem is HomeRepository.AdapterAdItem)
+            return 2
+        else
+            return 1
+    }
+
     override fun onSwipeToRefresh() {
         loadItems(HomeRepository.RequestStrategy.FIRST_PAGE)
     }
@@ -95,7 +101,6 @@ class HomePresenter(
                 repository.loadMoreData(repositoryRequestStrategy)
                     .observeOn(AndroidSchedulers.mainThread())
                     .doOnNext {
-                        Log.d("homePresenter", "log a doOnNext")
                         if (repositoryRequestStrategy == HomeRepository.RequestStrategy.FIRST_PAGE)
                             view?.clearAdapterItems()
 
@@ -106,14 +111,11 @@ class HomePresenter(
                         view?.loading(isLoading)
 
                     }.doOnComplete {
-                        Log.d("homePresenter", "log a doOnComplete")
                         activityMode = ActivityMode.DEFAULT
                         isLoading = false
                         view?.loading(isLoading)
 
                     }.doOnError {
-                        Log.d("homePresenter", "log a doOnError $it")
-
                         activityMode = ActivityMode.DEFAULT
                         isLoading = false
                         view?.loading(isLoading)

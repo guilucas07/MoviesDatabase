@@ -9,6 +9,7 @@ import com.guilhermelucas.moviedatabase.util.MovieImageUrlBuilder
 import io.reactivex.Observable
 import io.reactivex.functions.BiFunction
 import java.util.*
+import kotlin.collections.ArrayList
 
 class HomeRepository(private val imageUrlBuilder: MovieImageUrlBuilder, private val movieDataSource: MovieDataSource) {
 
@@ -64,7 +65,7 @@ class HomeRepository(private val imageUrlBuilder: MovieImageUrlBuilder, private 
                 moviesWithGenres
             })
     }
-    
+
     fun loadMoreData(requestStrategy: RequestStrategy = RequestStrategy.NEXT_PAGE): Observable<List<AdapterItem>> {
 
         val request = when (requestStrategy) {
@@ -72,12 +73,31 @@ class HomeRepository(private val imageUrlBuilder: MovieImageUrlBuilder, private 
             else -> 1
         }
 
-        return getDiscoveryMovies(request).flatMap { ret ->
-            Observable.fromIterable(ret).map {
-                AdapterMovieItem(convertToMovieVO(it))
-            }.toList().toObservable()
+        if (request == 1)
+            loadedItems.clear()
+
+        return getDiscoveryMovies(request).map { ret ->
+            ret.forEach {
+                inflateAdapterItem(it)
+            }
+            loadedItems
         }
     }
+
+    private fun inflateAdapterItem(movie: Movie) {
+        if ((loadedItems.size + 1) % 5 == 0)
+            loadedItems.add(AdapterAdItem())
+
+        loadedItems.add(AdapterMovieItem(convertToMovieVO(movie)))
+    }
+
+    fun getAdapterItem(position: Int): AdapterItem? {
+        if (position < loadedItems.size)
+            return loadedItems[position]
+        return null
+    }
+
+    private val loadedItems = ArrayList<AdapterItem>()
 
     abstract class AdapterItem {
         abstract val title: String
