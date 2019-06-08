@@ -2,6 +2,7 @@ package com.guilhermelucas.moviedatabase.home
 
 import com.guilhermelucas.moviedatabase.api.MovieDataSource
 import com.guilhermelucas.moviedatabase.data.Cache
+import com.guilhermelucas.moviedatabase.firebase.RemoteConfig
 import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterAdItem
 import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterItem
 import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterMovieItem
@@ -15,10 +16,12 @@ import java.util.*
 
 class HomeRepository(
     private val imageUrlBuilder: MovieImageUrlBuilder,
-    private val movieDataSource: MovieDataSource
+    private val movieDataSource: MovieDataSource,
+    private val remoteConfig: RemoteConfig
 ) {
 
     private var actualPage: Int = 0
+    private var promotionItemInterval = remoteConfig.getPromotionItemInterval().toInt() + 1
 
     enum class RequestStrategy {
         FIRST_PAGE, NEXT_PAGE
@@ -69,7 +72,7 @@ class HomeRepository(
 
     private fun inflateAdapterItem(movie: Movie) {
         loadedItems.add(AdapterMovieItem(convertToMovieVO(movie)))
-        if ((loadedItems.size + 1) % 5 == 0)
+        if ((loadedItems.size + 1) % promotionItemInterval == 0)
             loadedItems.add(getNextAdItem())
     }
 

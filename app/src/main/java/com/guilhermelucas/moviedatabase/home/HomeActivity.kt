@@ -38,7 +38,12 @@ class HomeActivity : BaseActivity(), HomeContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.home_activity)
 
-        val repository = HomeRepository(MovieImageUrlBuilder(RemoteConfig.instance), MovieDataSource.instance)
+        val repository =
+            HomeRepository(
+                MovieImageUrlBuilder(RemoteConfig.instance),
+                MovieDataSource.instance,
+                RemoteConfig.instance
+            )
         presenter = HomePresenter(repository)
         presenter.attachView(this)
 

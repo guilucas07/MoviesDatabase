@@ -21,15 +21,16 @@ class RemoteConfig private constructor() {
         const val IGNORE_LOCALIZATION = "request_ignore_user_localization"
         const val POSTER_URL = "poster_url"
         const val BACKDROP_URL = "backdrop_url"
+        const val PROMOTION_ITEM_INTERVAL = "promotion_item_interval"
     }
 
     init {
         remoteConfig.setDefaults(R.xml.firebase_config_defaults)
         if (BuildConfig.DEBUG) {
             val settings = FirebaseRemoteConfigSettings.Builder()
-                    .setDeveloperModeEnabled(true)
-                    .setFetchTimeoutInSeconds(60)
-                    .build()
+                .setDeveloperModeEnabled(true)
+                .setFetchTimeoutInSeconds(60)
+                .build()
             remoteConfig.setConfigSettings(settings)
         }
 
@@ -62,5 +63,9 @@ class RemoteConfig private constructor() {
 
     fun getBackdropUrl(): String {
         return remoteConfig.getString(FirebaseKeys.BACKDROP_URL)
+    }
+
+    fun getPromotionItemInterval(): Long {
+        return remoteConfig.getLong(FirebaseKeys.PROMOTION_ITEM_INTERVAL)
     }
 }
