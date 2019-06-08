@@ -7,7 +7,12 @@
     <string name="home_search_title">Search</string>
     <string name="home_search_hint">Search by name</string>
     <string name="home_empty_view_title">No upcoming movie in your region.</string>
-    <string name="home_empty_view_description">Use the search icon and find more information about movies already released</string>
+    <string name="home_empty_view_description">Use the search icon and find more information about movies already
+        released
+    </string>
     <string name="detail_error_backdrop_unavailable">Backdrop unavailable</string>
     <string name="detail_error_poster_unavailable">Poster unavailable</string>
+    <string name="promotion_ad_check_out">Check out</string>
+    <string name="promotion_ad_title">Check out %1$s movies</string>
+
 </resources>

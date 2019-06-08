@@ -1,94 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:background="@color/md_blue_grey_800"
+                android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/activity_vertical_margin">
-
-        <TextView
-            android:id="@+id/textMovieTitle"
-            style="@style/Text.Heading.Small"
+    <android.support.v7.widget.Toolbar
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/toolbar"
+            app:titleTextColor="@color/md_white_1000"
+            android:background="@color/md_blue_grey_800"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center" />
+            android:layout_height="?attr/actionBarSize"/>
 
-        <ImageView
-            android:id="@+id/imageMoviePoster"
-            android:layout_width="250dp"
-            android:layout_height="300dp"
-            android:layout_below="@id/textMovieTitle"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/activity_internal_elements_margin"
-            android:contentDescription="Movie poster"
-            android:scaleType="fitCenter"
-            tools:src="@drawable/ic_image_placeholder" />
-
-
-        <TextView
-            android:id="@+id/textGenres"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/imageMoviePoster"
-            android:layout_marginTop="@dimen/activity_internal_elements_margin"
-            android:text="@string/genres" />
-
-        <TextView
-            android:id="@+id/textMovieGenres"
-            style="@style/Text.Body"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@id/textGenres"
-            android:layout_marginStart="@dimen/activity_internal_elements_margin"
-            android:layout_toEndOf="@id/textGenres"
-            tools:text="Drama, comedy" />
-
-        <TextView
-            android:id="@+id/textOverview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/textMovieGenres"
-            android:layout_marginTop="@dimen/activity_internal_elements_margin"
-            android:text="@string/detail_overview" />
-
-        <TextView
-            android:id="@+id/textMovieOverview"
-            style="@style/Text.Body"
+    <ScrollView
+            android:layout_below="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textOverview"
-            android:layout_marginTop="@dimen/activity_internal_elements_margin"
-            tools:text="Amazing movie" />
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/textReleaseDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/textMovieOverview"
-            android:layout_marginTop="@dimen/activity_internal_elements_margin"
-            android:text="@string/detail_release_date" />
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/activity_vertical_margin">
 
-        <TextView
-            android:id="@+id/textMovieReleaseDate"
-            style="@style/Text.Body"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@id/textReleaseDate"
-            android:layout_marginStart="@dimen/activity_internal_elements_margin"
-            android:layout_toEndOf="@+id/textReleaseDate"
-            tools:text="20/10/2019" />
+            <TextView
+                    android:id="@+id/textMovieTitle"
+                    style="@style/Text.Heading.Small"
+                    android:textColor="@color/md_white_1000"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="Vingadores"
+                    android:gravity="center"/>
 
-        <Button
-            android:id="@+id/textMovieBackdrop"
-            style="@style/Button.Ghost"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/textMovieReleaseDate"
-            android:layout_marginTop="@dimen/activity_internal_elements_margin"
-            android:text="@string/detail_see_backdrop"
-            android:visibility="gone" />
-    </RelativeLayout>
-</ScrollView>
+            <ImageView
+                    android:id="@+id/imageMoviePoster"
+                    android:layout_width="250dp"
+                    android:layout_height="300dp"
+                    android:layout_below="@id/textMovieTitle"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/activity_internal_elements_margin"
+                    android:contentDescription="Movie poster"
+                    android:scaleType="fitCenter"
+                    tools:src="@drawable/ic_image_placeholder"/>
+
+
+            <TextView
+                    android:id="@+id/textGenres"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/imageMoviePoster"
+                    android:layout_marginTop="@dimen/activity_internal_elements_margin"
+                    android:textColor="@color/md_white_1000"
+                    android:text="@string/genres"/>
+
+            <TextView
+                    android:id="@+id/textMovieGenres"
+                    style="@style/Text.Body"
+                    android:layout_width="wrap_content"
+                    android:textColor="@color/md_white_1000"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@id/textGenres"
+                    android:layout_marginStart="@dimen/activity_internal_elements_margin"
+                    android:layout_toEndOf="@id/textGenres"
+                    tools:text="Drama, comedy"/>
+
+            <TextView
+                    android:id="@+id/textOverview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/md_white_1000"
+                    android:layout_below="@id/textMovieGenres"
+                    android:layout_marginTop="@dimen/activity_internal_elements_margin"
+                    android:text="@string/detail_overview"/>
+
+            <TextView
+                    android:id="@+id/textMovieOverview"
+                    style="@style/Text.Body"
+                    android:textColor="@color/md_white_1000"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textOverview"
+                    android:layout_marginTop="@dimen/activity_internal_elements_margin"
+                    tools:text="Amazing movie"/>
+
+            <TextView
+                    style="@style/Text.Caption.Small"
+                    android:id="@+id/textReleaseDate"
+                    android:layout_width="wrap_content"
+                    android:textColor="@color/md_white_1000"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textMovieOverview"
+                    android:layout_marginTop="@dimen/activity_internal_elements_margin"
+                    android:text="@string/detail_release_date"/>
+
+            <TextView
+                    android:id="@+id/textMovieReleaseDate"
+                    style="@style/Text.Body"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/md_white_1000"
+                    android:layout_alignBaseline="@id/textReleaseDate"
+                    android:layout_marginStart="@dimen/activity_internal_elements_margin"
+                    android:layout_toEndOf="@+id/textReleaseDate"
+                    tools:text="20/10/2019"/>
+
+            <Button
+                    android:id="@+id/textMovieBackdrop"
+                    style="@style/Button.Ghost"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textMovieReleaseDate"
+                    android:layout_marginTop="@dimen/activity_internal_elements_margin"
+                    android:text="@string/detail_see_backdrop"
+                    android:visibility="gone"/>
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

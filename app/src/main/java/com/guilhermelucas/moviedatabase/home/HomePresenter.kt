@@ -48,11 +48,11 @@ class HomePresenter(
 
     override fun onItemClick(position: Int) {
         val adapterItem = repository.getAdapterItem(position)
-        adapterItem?.run {
-            if (this is AdapterMovieItem)
-                view?.goToDetail(this.movie)
-            else (this is AdapterAdItem)
-            view?.goToPromotionDetail((this as AdapterAdItem).promotionAdItem)
+        if (adapterItem != null) {
+            if (adapterItem is AdapterMovieItem)
+                view?.goToDetail(adapterItem.movie)
+            else if (adapterItem is AdapterAdItem)
+                view?.goToPromotionDetail(adapterItem.promotionAdItem)
         }
     }
 

@@ -1,5 +1,7 @@
 package com.guilhermelucas.moviedatabase.home
 
+import android.content.Context
+import com.guilhermelucas.moviedatabase.R
 import com.guilhermelucas.moviedatabase.api.MovieDataSource
 import com.guilhermelucas.moviedatabase.data.Cache
 import com.guilhermelucas.moviedatabase.firebase.RemoteConfig
@@ -16,6 +18,7 @@ import io.reactivex.functions.BiFunction
 import java.util.*
 
 class HomeRepository(
+    private val context: Context,
     private val imageUrlBuilder: MovieImageUrlBuilder,
     private val movieDataSource: MovieDataSource,
     remoteConfig: RemoteConfig
@@ -83,8 +86,15 @@ class HomeRepository(
             savePromotionAds[0]
     }
 
+    //Should be came from local repository
     private val savePromotionAds = arrayListOf(
-        AdapterAdItem(PromotionAd("Confira todos os filmes da DC", "Confira", "marvel"))
+        AdapterAdItem(
+            PromotionAd(
+                String.format(context.getString(R.string.promotion_ad_title), "Marvel"),
+                context.getString(R.string.promotion_ad_check_out),
+                "marvel"
+            )
+        )
     )
 
     fun getAdapterItem(position: Int): AdapterItem? {
