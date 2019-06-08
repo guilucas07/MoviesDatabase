@@ -46,11 +46,11 @@
     </style>
 
     <style name="Button.Ghost" parent="Widget.AppCompat.Button">
-        <item name="android:textColor">@color/md_white_1000</item>
+        <item name="android:textColor">@color/md_blue_grey_800</item>
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textSize">14sp</item>
         <item name="android:padding">4dp</item>
-        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:background">@color/md_white_1000</item>
     </style>
 
 </resources>

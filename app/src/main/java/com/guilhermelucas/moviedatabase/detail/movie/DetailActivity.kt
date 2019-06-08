@@ -33,6 +33,7 @@ class DetailActivity : BaseActivity(), DetailContract.View {
         supportActionBar?.let {
             it.setHomeButtonEnabled(true)
             it.setDisplayHomeAsUpEnabled(true)
+            it.title = ""
         }
 
         val itemId = intent?.extras?.getInt(ExtraParam.ITEM_ID, -1) ?: -1

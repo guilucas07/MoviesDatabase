@@ -46,6 +46,7 @@ class HomeActivity : BaseActivity(), HomeContract.View {
 
         val repository =
             HomeRepository(
+                baseContext,
                 MovieImageUrlBuilder(RemoteConfig.instance),
                 MovieDataSource.instance,
                 RemoteConfig.instance

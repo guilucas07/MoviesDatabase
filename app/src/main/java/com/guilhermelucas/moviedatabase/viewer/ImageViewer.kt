@@ -15,14 +15,16 @@ class ImageViewer : BaseActivity() {
     object ExtraParam {
         const val ITEM_URL = "viewer_activity_param_image_url"
     }
-    
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.backdrop_viewer_activity)
-        imageUrl = intent.extras.getString(ExtraParam.ITEM_URL, "")
+        imageUrl = intent?.extras?.getString(ExtraParam.ITEM_URL, "") ?: ""
         if (imageUrl.isEmpty())
-            throw IllegalArgumentException("${ExtraParam.ITEM_URL} is necessary to this activity and " +
-                    "doesn't was informed. Check startActivity and try again'")
+            throw IllegalArgumentException(
+                "${ExtraParam.ITEM_URL} is necessary to this activity and " +
+                        "doesn't was informed. Check startActivity and try again'"
+            )
 
         setSupportActionBar(toolbar)
         supportActionBar?.let {
@@ -46,9 +48,9 @@ class ImageViewer : BaseActivity() {
 
     private fun loadImage() {
         Glide.with(baseContext)
-                .load(imageUrl)
-                .apply(RequestOptions().placeholder(R.drawable.ic_image_placeholder))
-                .into(imageMovieBackdrop)
+            .load(imageUrl)
+            .apply(RequestOptions().placeholder(R.drawable.ic_image_placeholder))
+            .into(imageMovieBackdrop)
     }
 
     private fun setupUI() {
