@@ -15,6 +15,7 @@ class HomePresenter(
     private var activityMode = ActivityMode.DEFAULT
     private var isLoading = false
     private var repositoryRequestStrategy = HomeRepository.RequestStrategy.FIRST_PAGE
+    private var shouldLoadPromotionAds = false
 
 
     /*****************************/
@@ -60,8 +61,11 @@ class HomePresenter(
     }
 
     override fun getSpanSize(adapterPosition: Int): Int {
-        val adapterItem = repository.getAdapterItem(adapterPosition)!!
-        return if (adapterItem is AdapterAdItem) 2 else 1
+        if (shouldLoadPromotionAds) {
+            val adapterItem = repository.getAdapterItem(adapterPosition)
+            return if (adapterItem is AdapterAdItem) 2 else 1
+        }
+        return 1
     }
 
     override fun onSwipeToRefresh() {
@@ -75,6 +79,7 @@ class HomePresenter(
 
     override fun searchMovie(partialName: String) {
         if (partialName.length >= Constants.SEARCH_MIN_LETTERS) {
+            shouldLoadPromotionAds = false
             val disposable = repository.getMovie(partialName)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
@@ -82,6 +87,7 @@ class HomePresenter(
                     view?.onLoadMovies(listMovies)
                     activityMode = ActivityMode.SEARCH
                 }
+
             compositeDisposable.add(disposable)
         }
     }
@@ -95,6 +101,7 @@ class HomePresenter(
             isLoading = true
             view?.loading(isLoading)
 
+            shouldLoadPromotionAds = true
             this.repositoryRequestStrategy = repositoryRequestStrategy
 
             val observer =

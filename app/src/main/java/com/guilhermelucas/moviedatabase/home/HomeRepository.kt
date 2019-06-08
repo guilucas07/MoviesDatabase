@@ -53,7 +53,6 @@ class HomeRepository(
     }
 
     fun loadMoreData(requestStrategy: RequestStrategy = RequestStrategy.NEXT_PAGE): Observable<List<AdapterItem>> {
-
         val request = when (requestStrategy) {
             RequestStrategy.NEXT_PAGE -> actualPage + 1
             else -> 1

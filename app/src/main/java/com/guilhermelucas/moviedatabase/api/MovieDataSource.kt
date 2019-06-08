@@ -52,22 +52,10 @@ class MovieDataSource private constructor() {
         }
     }
 
-    fun getMovie(movieId: Long): Observable<Movie> = Observable.create { emitter ->
-        val cached = Cache.movies.findLast { it.id.toLong() == movieId }
-
-        cached?.let {
-            emitter.onNext(it)
-            emitter.onComplete()
-            return@create
-        }
-
-        tmdbApi.movie(movieId, dataSourceSettings.getApiKey(), dataSourceSettings.getLanguage())
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { movie ->
+    fun getMovie(movieId: Long): Observable<Movie> {
+        return tmdbApi.movie(movieId, dataSourceSettings.getApiKey(), dataSourceSettings.getLanguage())
+            .doOnNext { movie ->
                 Cache.cacheMovies(movie)
-                emitter.onNext(movie)
-                emitter.onComplete()
             }
     }
 

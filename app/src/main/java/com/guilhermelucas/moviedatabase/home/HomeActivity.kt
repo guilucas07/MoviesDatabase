@@ -2,6 +2,7 @@ package com.guilhermelucas.moviedatabase.home
 
 import android.app.SearchManager
 import android.content.Context
+import android.content.Intent
 import android.nfc.tech.MifareUltralight.PAGE_SIZE
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
@@ -14,6 +15,7 @@ import android.view.View
 import com.guilhermelucas.moviedatabase.R
 import com.guilhermelucas.moviedatabase.api.MovieDataSource
 import com.guilhermelucas.moviedatabase.base.BaseActivity
+import com.guilhermelucas.moviedatabase.detail.DetailActivity
 import com.guilhermelucas.moviedatabase.firebase.RemoteConfig
 import com.guilhermelucas.moviedatabase.home.adapter.HomeAdapter
 import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterItem
@@ -73,11 +75,11 @@ class HomeActivity : BaseActivity(), HomeContract.View {
 
 
     override fun goToDetail(movie: MovieVO) {
-//        val intent = Intent(baseContext, DetailActivity::class.java).apply {
-//            putExtra(DetailActivity.ExtraParam.ITEM_ID, movie.id)
-//        }
-//
-//        startActivity(intent)
+        val intent = Intent(baseContext, DetailActivity::class.java).apply {
+            putExtra(DetailActivity.ExtraParam.ITEM_ID, movie.id)
+        }
+
+        startActivity(intent)
     }
 
     override fun loading(visible: Boolean) {
