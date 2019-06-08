@@ -9,6 +9,7 @@ import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterMovieItem
 import com.guilhermelucas.moviedatabase.model.Genre
 import com.guilhermelucas.moviedatabase.model.Movie
 import com.guilhermelucas.moviedatabase.model.MovieVO
+import com.guilhermelucas.moviedatabase.model.PromotionAd
 import com.guilhermelucas.moviedatabase.util.MovieImageUrlBuilder
 import io.reactivex.Observable
 import io.reactivex.functions.BiFunction
@@ -17,7 +18,7 @@ import java.util.*
 class HomeRepository(
     private val imageUrlBuilder: MovieImageUrlBuilder,
     private val movieDataSource: MovieDataSource,
-    private val remoteConfig: RemoteConfig
+    remoteConfig: RemoteConfig
 ) {
 
     private var actualPage: Int = 0
@@ -76,12 +77,14 @@ class HomeRepository(
     }
 
     private fun getNextAdItem(): AdapterAdItem {
-        return savedAds[loadedItems.size % 2]
+        return if (savePromotionAds.size > 1) {
+            savePromotionAds[loadedItems.size % 2]
+        } else
+            savePromotionAds[0]
     }
 
-    private val savedAds = arrayListOf(
-        AdapterAdItem("Confira todos os filmes da Marvel", "Confira", "marvel"),
-        AdapterAdItem("Confira todos os filmes da DC", "Confira", "dc")
+    private val savePromotionAds = arrayListOf(
+        AdapterAdItem(PromotionAd("Confira todos os filmes da DC", "Confira", "marvel"))
     )
 
     fun getAdapterItem(position: Int): AdapterItem? {

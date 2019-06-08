@@ -10,6 +10,7 @@ abstract class BaseTracker(val context: Context) {
 
     object CommonParams{
         const val MOVIE_ID = "movie_id"
+        const val SEARCH_KEY_API = "search_key_api"
     }
 
     fun logEvent(event: String, params: Bundle? = null) {

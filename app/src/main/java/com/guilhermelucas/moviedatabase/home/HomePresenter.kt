@@ -51,6 +51,8 @@ class HomePresenter(
         adapterItem?.run {
             if (this is AdapterMovieItem)
                 view?.goToDetail(this.movie)
+            else (this is AdapterAdItem)
+            view?.goToPromotionDetail((this as AdapterAdItem).promotionAdItem)
         }
     }
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Desafio de Código</string>
+    <string name="app_name">Banco de filmes</string>
     <string name="detail_see_backdrop">Ver pôster expandido</string>
     <string name="genres">Gêneros</string>
     <string name="detail_release_date">Data de Lançamento</string>

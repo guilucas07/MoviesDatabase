@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Code Challenge</string>
+    <string name="app_name">Movies Database</string>
     <string name="detail_see_backdrop">See backdrop</string>
     <string name="genres">Genres</string>
     <string name="detail_release_date">Release Date</string>

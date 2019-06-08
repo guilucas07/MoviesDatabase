@@ -15,11 +15,13 @@ import android.view.View
 import com.guilhermelucas.moviedatabase.R
 import com.guilhermelucas.moviedatabase.api.MovieDataSource
 import com.guilhermelucas.moviedatabase.base.BaseActivity
-import com.guilhermelucas.moviedatabase.detail.DetailActivity
+import com.guilhermelucas.moviedatabase.detail.movie.DetailActivity
+import com.guilhermelucas.moviedatabase.detail.promotion.DetailPromotionAdActivity
 import com.guilhermelucas.moviedatabase.firebase.RemoteConfig
 import com.guilhermelucas.moviedatabase.home.adapter.HomeAdapter
 import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterItem
 import com.guilhermelucas.moviedatabase.model.MovieVO
+import com.guilhermelucas.moviedatabase.model.PromotionAd
 import com.guilhermelucas.moviedatabase.util.MovieImageUrlBuilder
 import kotlinx.android.synthetic.main.home_activity.*
 import android.util.Pair as UtilPair
@@ -39,6 +41,8 @@ class HomeActivity : BaseActivity(), HomeContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.home_activity)
+
+        setSupportActionBar(toolbar)
 
         val repository =
             HomeRepository(
@@ -73,12 +77,18 @@ class HomeActivity : BaseActivity(), HomeContract.View {
         verifyRecyclerViewVisibility()
     }
 
-
     override fun goToDetail(movie: MovieVO) {
         val intent = Intent(baseContext, DetailActivity::class.java).apply {
             putExtra(DetailActivity.ExtraParam.ITEM_ID, movie.id)
         }
 
+        startActivity(intent)
+    }
+
+    override fun goToPromotionDetail(promotionAd: PromotionAd) {
+        val intent = Intent(baseContext, DetailPromotionAdActivity::class.java).apply {
+            putExtra(DetailPromotionAdActivity.ExtraParam.SERIALIZABLE_PROMOTION_AD, promotionAd)
+        }
         startActivity(intent)
     }
 
@@ -91,9 +101,9 @@ class HomeActivity : BaseActivity(), HomeContract.View {
         adapter.notifyDataSetChanged()
     }
 
-    /******************************************/
-    /**         class private methods        **/
-    /******************************************/
+    /***********************/
+    /**  private methods  **/
+    /***********************/
 
     private fun initSearchMenu(menu: Menu?) {
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager

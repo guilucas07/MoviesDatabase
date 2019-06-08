@@ -5,51 +5,60 @@
                 android:background="@color/md_blue_grey_800"
                 android:layout_height="match_parent">
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipeRefreshMovies"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <android.support.v7.widget.Toolbar
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/toolbar"
+            app:titleTextColor="@color/md_white_1000"
+            android:background="@color/md_blue_grey_800"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"/>
 
-        <RelativeLayout
+    <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefreshMovies"
+            android:layout_below="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <RelativeLayout
-                android:id="@+id/layoutEmptyMovies"
+        <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:padding="@dimen/activity_internal_elements_margin"
-                android:visibility="gone">
+                android:layout_height="match_parent">
+
+            <RelativeLayout
+                    android:id="@+id/layoutEmptyMovies"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:padding="@dimen/activity_internal_elements_margin"
+                    android:visibility="gone">
 
                 <TextView
-                    android:id="@+id/textEmptyViewTitle"
-                    style="@style/Text.Heading.Large"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="@string/home_empty_view_title" />
+                        android:id="@+id/textEmptyViewTitle"
+                        style="@style/Text.Heading.Large"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/home_empty_view_title"/>
 
                 <TextView
-                    android:id="@+id/textEmptyViewDescription"
-                    style="@style/Text.Heading.Small"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/textEmptyViewTitle"
-                    android:layout_marginTop="@dimen/activity_internal_elements_extra_margin"
-                    android:gravity="center"
-                    android:text="@string/home_empty_view_description" />
+                        android:id="@+id/textEmptyViewDescription"
+                        style="@style/Text.Heading.Small"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/textEmptyViewTitle"
+                        android:layout_marginTop="@dimen/activity_internal_elements_extra_margin"
+                        android:gravity="center"
+                        android:text="@string/home_empty_view_description"/>
             </RelativeLayout>
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerViewMovies"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clipToPadding="true"
-                android:paddingTop="12dp"
-                android:paddingBottom="12dp"
-                tools:itemCount="10"
-                tools:listitem="@layout/movie_item" />
+                    android:id="@+id/recyclerViewMovies"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clipToPadding="true"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp"
+                    tools:itemCount="10"
+                    tools:listitem="@layout/movie_item"/>
         </RelativeLayout>
 
     </android.support.v4.widget.SwipeRefreshLayout>

@@ -8,18 +8,25 @@
                  android:supportsRtl="true"
                  android:theme="@style/AppTheme">
 
-        <activity android:name=".home.HomeActivity">
+        <activity android:name=".home.HomeActivity"
+                  android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
             <meta-data
                     android:name="android.app.searchable"
-                    android:resource="@xml/home_searchable" />
+                    android:resource="@xml/home_searchable"/>
         </activity>
-        <activity android:name=".detail.DetailActivity" />
+        <activity android:name=".detail.movie.DetailActivity"
+                  android:screenOrientation="portrait"/>
+
         <activity
                 android:name=".viewer.ImageViewer"
-                android:theme="@style/Theme.AppCompat.NoActionBar" />
+                android:screenOrientation="portrait"
+                android:theme="@style/Theme.AppCompat.NoActionBar"/>
+
+        <activity android:name=".detail.promotion.DetailPromotionAdActivity"
+                  android:screenOrientation="portrait"/>
     </application>
 </manifest>

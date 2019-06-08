@@ -1,27 +1,21 @@
-package com.guilhermelucas.moviedatabase.home
+package com.guilhermelucas.moviedatabase.detail.promotion
 
 import com.guilhermelucas.moviedatabase.base.BasePresenter
 import com.guilhermelucas.moviedatabase.base.BaseView
 import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterItem
 import com.guilhermelucas.moviedatabase.model.MovieVO
-import com.guilhermelucas.moviedatabase.model.PromotionAd
 
-interface HomeContract {
+interface DetailPromotionAdContract {
     interface View : BaseView {
         fun onLoadMovies(movies: List<AdapterItem>)
         fun goToDetail(movie: MovieVO)
-        fun goToPromotionDetail(promotionAd : PromotionAd)
-        fun loading(visible: Boolean)
-        fun moviesLoaded()
+        fun setTitleText(title : String)
     }
 
     interface Presenter : BasePresenter<View> {
         fun onResume()
-        fun onItemClick(position: Int)
         fun loadMoreItems()
-        fun onSwipeToRefresh()
-        fun searchMovie(partialName: String)
-        fun onCloseSearchBar(): Boolean
-        fun getSpanSize(adapterPosition: Int): Int
+        fun onItemClick(position: Int)
     }
+
 }
