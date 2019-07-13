@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.adapter_ad_item.view.*
 
 class AdViewHolder(val clickListener: (position: Int) -> Unit, itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    fun bind(adapterItem: AdapterAdItem) {
+    fun bind(adapterItem: AdapterItem.AdItem) {
         val promotion = adapterItem.promotionAdItem
         itemView.textAdTitle.text = promotion.title
         itemView.textAdAction.text = promotion.callToActionText

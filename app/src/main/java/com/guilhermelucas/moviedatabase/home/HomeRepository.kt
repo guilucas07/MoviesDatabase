@@ -4,11 +4,12 @@ import android.content.Context
 import com.guilhermelucas.moviedatabase.R
 import com.guilhermelucas.moviedatabase.api.MovieDataSource
 import com.guilhermelucas.moviedatabase.data.Cache
-import com.guilhermelucas.moviedatabase.domain.model.*
+import com.guilhermelucas.moviedatabase.domain.model.Genre
+import com.guilhermelucas.moviedatabase.domain.model.Movie
+import com.guilhermelucas.moviedatabase.domain.model.PromotionAd
+import com.guilhermelucas.moviedatabase.domain.model.toMovieVO
 import com.guilhermelucas.moviedatabase.firebase.RemoteConfig
-import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterAdItem
 import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterItem
-import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterMovieItem
 import com.guilhermelucas.moviedatabase.util.MovieImageUrlBuilder
 import io.reactivex.Observable
 import io.reactivex.functions.BiFunction
@@ -31,7 +32,7 @@ class HomeRepository(
     fun getMovie(partialName: String): Observable<List<AdapterItem>> {
         return movieDataSource.getMovie(partialName).flatMap { ret ->
             Observable.fromIterable(ret).map {
-                AdapterMovieItem(it.toMovieVO(imageUrlBuilder))
+                AdapterItem.MovieItem(it.toMovieVO(imageUrlBuilder))
             }.toList().toObservable()
         }
     }
@@ -71,12 +72,12 @@ class HomeRepository(
     }
 
     private fun inflateAdapterItem(movie: Movie) {
-        loadedItems.add(AdapterMovieItem(movie.toMovieVO(imageUrlBuilder)))
+        loadedItems.add(AdapterItem.MovieItem(movie.toMovieVO(imageUrlBuilder)))
         if ((loadedItems.size + 1) % promotionItemInterval == 0)
             loadedItems.add(getNextAdItem())
     }
 
-    private fun getNextAdItem(): AdapterAdItem {
+    private fun getNextAdItem(): AdapterItem.AdItem {
         return if (savePromotionAds.size > 1) {
             savePromotionAds[loadedItems.size % 2]
         } else
@@ -85,7 +86,7 @@ class HomeRepository(
 
     //must be from local repository
     private val savePromotionAds = arrayListOf(
-        AdapterAdItem(
+        AdapterItem.AdItem(
             PromotionAd(
                 String.format(context.getString(R.string.promotion_ad_title), "Marvel"),
                 context.getString(R.string.promotion_ad_check_out),

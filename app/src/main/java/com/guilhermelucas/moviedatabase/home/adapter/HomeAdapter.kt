@@ -39,6 +39,7 @@ class HomeAdapter(
     interface Presenter {
         fun onBindRepositoryRowViewAtPosition(holder: RecyclerView.ViewHolder, position: Int)
         fun getItemsCount(): Int
+        fun getSpanSize(adapterPosition: Int): Int
         fun getItemViewHolder(adapterPosition: Int): ViewHolderType
     }
 

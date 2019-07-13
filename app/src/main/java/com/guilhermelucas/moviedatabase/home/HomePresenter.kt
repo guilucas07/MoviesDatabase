@@ -3,8 +3,7 @@ package com.guilhermelucas.moviedatabase.home
 import android.support.v7.widget.RecyclerView
 import com.guilhermelucas.moviedatabase.home.adapter.HomeAdapter
 import com.guilhermelucas.moviedatabase.home.adapter.item.AdViewHolder
-import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterAdItem
-import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterMovieItem
+import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterItem
 import com.guilhermelucas.moviedatabase.home.adapter.item.MovieViewHolder
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -53,9 +52,9 @@ class HomePresenter(
     override fun onItemClick(position: Int) {
         val adapterItem = repository.getAdapterItem(position)
         if (adapterItem != null) {
-            if (adapterItem is AdapterMovieItem)
+            if (adapterItem is AdapterItem.MovieItem)
                 view?.goToDetail(adapterItem.movie)
-            else if (adapterItem is AdapterAdItem)
+            else if (adapterItem is AdapterItem.AdItem)
                 view?.goToPromotionDetail(adapterItem.promotionAdItem)
         }
     }
@@ -69,7 +68,7 @@ class HomePresenter(
     override fun getSpanSize(adapterPosition: Int): Int {
         if (shouldLoadPromotionAds) {
             val adapterItem = repository.getAdapterItem(adapterPosition)
-            return if (adapterItem is AdapterAdItem) 2 else 1
+            return if (adapterItem is AdapterItem.AdItem) 2 else 1
         }
         return 1
     }
@@ -137,9 +136,9 @@ class HomePresenter(
 
     override fun onBindRepositoryRowViewAtPosition(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is MovieViewHolder)
-            return holder.bind(repository.getAdapterItem(position) as AdapterMovieItem)
+            return holder.bind(repository.getAdapterItem(position) as AdapterItem.MovieItem)
         else if (holder is AdViewHolder)
-            return holder.bind(repository.getAdapterItem(position) as AdapterAdItem)
+            return holder.bind(repository.getAdapterItem(position) as AdapterItem.AdItem)
     }
 
     override fun getItemsCount(): Int {
@@ -150,7 +149,7 @@ class HomePresenter(
         val item = repository.getAdapterItem(adapterPosition)
 
         return when (item) {
-            is AdapterAdItem -> HomeAdapter.ViewHolderType.AD
+            is AdapterItem.AdItem -> HomeAdapter.ViewHolderType.AD
             else -> HomeAdapter.ViewHolderType.MOVIE
         }
     }

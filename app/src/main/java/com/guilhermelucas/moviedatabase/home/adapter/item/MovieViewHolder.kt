@@ -9,7 +9,7 @@ import java.util.*
 
 class MovieViewHolder(val clickListener: (position: Int) -> Unit, itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    fun bind(adapterItem: AdapterMovieItem) {
+    fun bind(adapterItem: AdapterItem.MovieItem) {
 
         val movie = adapterItem.movie
         itemView.textMovieTitle.text = movie.title

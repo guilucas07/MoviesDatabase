@@ -1,11 +1,10 @@
 package com.guilhermelucas.moviedatabase.detail.promotion
 
 import android.support.v7.widget.RecyclerView
-import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterMovieItem
 import com.guilhermelucas.moviedatabase.domain.model.PromotionAd
 import com.guilhermelucas.moviedatabase.home.adapter.HomeAdapter
 import com.guilhermelucas.moviedatabase.home.adapter.item.AdViewHolder
-import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterAdItem
+import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterItem
 import com.guilhermelucas.moviedatabase.home.adapter.item.MovieViewHolder
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -16,7 +15,6 @@ class DetailPromotionAdPresenter(
     private val repository: DetailPromotionAdRepository,
     private val tracker: DetailPromotionAdTracker
 ) : DetailPromotionAdContract.Presenter {
-
 
     private var view: DetailPromotionAdContract.View? = null
     private var isLoading = false
@@ -46,16 +44,16 @@ class DetailPromotionAdPresenter(
     override fun onItemClick(position: Int) {
         val adapterItem = repository.getAdapterItem(position)
         adapterItem?.run {
-            if (this is AdapterMovieItem)
+            if (this is AdapterItem.MovieItem)
                 view?.goToDetail(this.movie)
         }
     }
 
     override fun onBindRepositoryRowViewAtPosition(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is MovieViewHolder)
-            return holder.bind(repository.getAdapterItem(position) as AdapterMovieItem)
+            return holder.bind(repository.getAdapterItem(position) as AdapterItem.MovieItem)
         else if (holder is AdViewHolder)
-            return holder.bind(repository.getAdapterItem(position) as AdapterAdItem)
+            return holder.bind(repository.getAdapterItem(position) as AdapterItem.AdItem)
     }
 
     override fun getItemsCount(): Int {
@@ -66,9 +64,13 @@ class DetailPromotionAdPresenter(
         val item = repository.getAdapterItem(adapterPosition)
 
         return when (item) {
-            is AdapterAdItem -> HomeAdapter.ViewHolderType.AD
+            is AdapterItem.AdItem -> HomeAdapter.ViewHolderType.AD
             else -> HomeAdapter.ViewHolderType.MOVIE
         }
+    }
+
+    override fun getSpanSize(adapterPosition: Int): Int {
+        return 1
     }
 
     /*************************/

@@ -23,6 +23,5 @@ interface HomeContract {
         fun onSwipeToRefresh()
         fun searchMovie(partialName: String)
         fun onCloseSearchBar(): Boolean
-        fun getSpanSize(adapterPosition: Int): Int
     }
 }
