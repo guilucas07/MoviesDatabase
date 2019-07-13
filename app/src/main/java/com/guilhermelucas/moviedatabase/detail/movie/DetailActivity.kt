@@ -4,14 +4,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.guilhermelucas.moviedatabase.R
 import com.guilhermelucas.moviedatabase.api.MovieDataSource
 import com.guilhermelucas.moviedatabase.base.BaseActivity
 import com.guilhermelucas.moviedatabase.firebase.RemoteConfig
 import com.guilhermelucas.moviedatabase.model.MovieVO
 import com.guilhermelucas.moviedatabase.util.MovieImageUrlBuilder
+import com.guilhermelucas.moviedatabase.util.loadFromUrl
 import com.guilhermelucas.moviedatabase.viewer.ImageViewer
 import kotlinx.android.synthetic.main.detail_activity.*
 import java.text.DateFormat
@@ -28,9 +27,7 @@ class DetailActivity : BaseActivity(), DetailContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.detail_activity)
 
-//        collapsing_toolbar.title = title
-//        collapsingToolbarLayout.setTitle(title)
-//        setSupportActionBar(toolbar)
+        setSupportActionBar(toolbar)
         supportActionBar?.let {
             it.setHomeButtonEnabled(true)
             it.setDisplayHomeAsUpEnabled(true)
@@ -72,15 +69,9 @@ class DetailActivity : BaseActivity(), DetailContract.View {
 
         val dateFormat = DateFormat.getDateInstance(DateFormat.SHORT, resources.configuration.locale)
         textMovieReleaseDate.text = dateFormat.format(movie.releaseDate)
-        Glide.with(baseContext)
-            .load(movie.posterUrl)
-            .apply(RequestOptions().placeholder(R.drawable.ic_image_placeholder))
-            .into(imageMoviePoster)
 
-        Glide.with(baseContext)
-            .load(movie.backdropUrl)
-            .apply(RequestOptions().placeholder(R.drawable.ic_image_placeholder))
-            .into(imageMovieBackdrop)
+        imageMoviePoster.loadFromUrl(movie.posterUrl)
+        imageMovieBackdrop.loadFromUrl(movie.backdropUrl)
 
         imageMovieBackdrop.setOnClickListener {
             presenter.seeMovieBackdrop(movie)

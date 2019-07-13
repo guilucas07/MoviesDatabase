@@ -1,145 +1,153 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView
+<android.support.constraint.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:background="@color/md_blue_grey_800"
-
         android:fillViewport="true"
         android:layout_height="match_parent">
 
-    <android.support.constraint.ConstraintLayout android:layout_width="match_parent"
-                                                 android:layout_height="match_parent">
 
-        <ImageView
-                android:layout_width="0dp"
-                android:layout_height="206dp"
-                android:layout_margin="0dp"
-                android:adjustViewBounds="true"
-                android:cropToPadding="false"
-                android:padding="0dp"
-                android:scaleType="fitXY"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_anchorGravity="bottom|start"
-                android:id="@+id/imageMovieBackdrop"
-                tools:src="@drawable/ic_image_placeholder"/>
+    <ImageView
+            android:layout_width="0dp"
+            android:layout_height="206dp"
+            android:layout_margin="0dp"
+            android:adjustViewBounds="true"
+            android:cropToPadding="false"
+            android:padding="0dp"
+            android:scaleType="fitXY"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_anchorGravity="bottom|start"
+            android:id="@+id/imageMovieBackdrop"
+            tools:src="@drawable/ic_image_placeholder"/>
 
-        <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:tint="@color/md_white_1000"
-                android:id="@+id/imageExpandBackdrop"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="8dp"
-                app:layout_constraintEnd_toEndOf="@+id/imageMovieBackdrop"
-                app:layout_constraintBottom_toBottomOf="@id/imageMovieBackdrop"
-                android:src="@drawable/ic_enter_fullscreen"/>
+    <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            app:titleTextColor="@color/md_white_1000"
+            android:background="@android:color/transparent"
+            android:layout_width="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_height="?attr/actionBarSize"/>
 
-        <ImageView
-                android:id="@+id/imageMoviePoster"
-                android:layout_width="150dp"
-                android:layout_height="200dp"
-                android:layout_marginStart="16dp"
-                tools:src="@drawable/ic_image_placeholder"
-                android:layout_marginTop="100dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+    <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:tint="@color/md_white_1000"
+            android:id="@+id/imageExpandBackdrop"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/imageMovieBackdrop"
+            app:layout_constraintBottom_toBottomOf="@id/imageMovieBackdrop"
+            android:src="@drawable/ic_enter_fullscreen"/>
 
-        <TextView
-                android:id="@+id/textMovieTitle"
-                style="@style/Text.Caption"
-                android:textColor="@color/md_white_1000"
-                android:layout_height="wrap_content"
-                tools:text="Homem aranha longe de casa"
-                android:gravity="center"
-                android:layout_width="0dp" app:layout_constraintStart_toEndOf="@+id/imageMoviePoster"
-                android:layout_marginStart="8dp" android:layout_marginEnd="8dp"
-                app:layout_constraintEnd_toEndOf="parent" android:layout_marginTop="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/imageMovieBackdrop"/>
+    <ImageView
+            android:id="@+id/imageMoviePoster"
+            android:layout_width="150dp"
+            android:layout_height="200dp"
+            android:layout_marginStart="16dp"
+            tools:src="@drawable/ic_image_placeholder"
+            android:layout_marginTop="100dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
-
-        <TextView
-                android:id="@+id/textGenres"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/md_white_1000"
-                android:text="@string/genres"
-                app:layout_constraintStart_toEndOf="@+id/imageMoviePoster" android:layout_marginStart="8dp"
-
-                app:layout_constraintBaseline_toBaselineOf="@id/textMovieGenres"
-                app:layout_constraintTop_toBottomOf="@+id/textMovieTitle"/>
-
-        <TextView
-                android:id="@+id/textMovieGenres"
-                style="@style/Text.Body"
-                android:layout_width="0dp"
-                android:textColor="@color/md_white_1000"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@id/textGenres"
-                android:layout_toEndOf="@id/textGenres"
-                android:ellipsize="end"
-                tools:text="Drama, comedy, ficacao cie tetetet reetetetet rerer"
-                app:layout_constraintStart_toEndOf="@+id/textGenres"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/textMovieTitle"
-                android:layout_marginStart="8dp"/>
-
-        <TextView
-                style="@style/Text.Caption.Small"
-                android:id="@+id/textReleaseDate"
-                android:layout_width="wrap_content"
-                android:textColor="@color/md_white_1000"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textMovieOverview"
-                android:text="@string/detail_release_date"
-                app:layout_constraintBaseline_toBaselineOf="@id/textMovieReleaseDate"
-                app:layout_constraintStart_toEndOf="@+id/imageMoviePoster" android:layout_marginStart="8dp"/>
+    <TextView
+            android:id="@+id/textMovieTitle"
+            style="@style/Text.Caption"
+            android:textColor="@color/md_white_1000"
+            android:layout_height="wrap_content"
+            tools:text="Homem aranha longe de casa"
+            android:gravity="center"
+            android:layout_width="0dp" app:layout_constraintStart_toEndOf="@+id/imageMoviePoster"
+            android:layout_marginStart="8dp" android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/imageMovieBackdrop"/>
 
 
-        <TextView
-                android:id="@+id/textMovieReleaseDate"
-                style="@style/Text.Body"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/md_white_1000"
-                android:layout_alignBaseline="@id/textReleaseDate"
-                android:layout_toEndOf="@+id/textReleaseDate"
-                tools:text="20/10/2019"
-                app:layout_constraintTop_toBottomOf="@+id/textMovieGenres"
-                android:layout_marginTop="8dp"
-                app:layout_constraintStart_toEndOf="@+id/textReleaseDate" android:layout_marginStart="8dp"/>
+    <TextView
+            android:id="@+id/textGenres"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/md_white_1000"
+            android:text="@string/genres"
+            app:layout_constraintStart_toEndOf="@+id/imageMoviePoster" android:layout_marginStart="8dp"
 
-        <TextView
-                android:id="@+id/textOverview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/md_white_1000"
-                android:layout_below="@id/textMovieGenres"
-                style="@style/Text.Heading.Small"
-                android:text="@string/detail_overview"
-                android:layout_marginTop="32dp"
-                app:layout_constraintTop_toBottomOf="@+id/imageMoviePoster" android:layout_marginStart="16dp"
-                app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintBaseline_toBaselineOf="@id/textMovieGenres"
+            app:layout_constraintTop_toBottomOf="@+id/textMovieTitle"/>
 
-        <TextView
-                android:id="@+id/textMovieOverview"
-                style="@style/Text.Body"
-                android:textColor="@color/md_white_1000"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/textOverview"
-                tools:text="Amazing movie" android:layout_marginStart="16dp"
-                app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/textOverview" android:layout_marginEnd="16dp"
-                app:layout_constraintEnd_toEndOf="parent"/>
+    <TextView
+            android:id="@+id/textMovieGenres"
+            style="@style/Text.Body"
+            android:layout_width="0dp"
+            android:textColor="@color/md_white_1000"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/textGenres"
+            android:layout_toEndOf="@id/textGenres"
+            android:ellipsize="end"
+            tools:text="Drama, comedy, ficacao cie tetetet reetetetet rerer"
+            app:layout_constraintStart_toEndOf="@+id/textGenres"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/textMovieTitle"
+            android:layout_marginStart="8dp"/>
 
-    </android.support.constraint.ConstraintLayout>
-</android.support.v4.widget.NestedScrollView>
+    <TextView
+            style="@style/Text.Caption.Small"
+            android:id="@+id/textReleaseDate"
+            android:layout_width="wrap_content"
+            android:textColor="@color/md_white_1000"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textMovieOverview"
+            android:text="@string/detail_release_date"
+            app:layout_constraintBaseline_toBaselineOf="@id/textMovieReleaseDate"
+            app:layout_constraintStart_toEndOf="@+id/imageMoviePoster" android:layout_marginStart="8dp"/>
+
+
+    <TextView
+            android:id="@+id/textMovieReleaseDate"
+            style="@style/Text.Body"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/md_white_1000"
+            android:layout_alignBaseline="@id/textReleaseDate"
+            android:layout_toEndOf="@+id/textReleaseDate"
+            tools:text="20/10/2019"
+            app:layout_constraintTop_toBottomOf="@+id/textMovieGenres"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toEndOf="@+id/textReleaseDate" android:layout_marginStart="8dp"/>
+
+    <TextView
+            android:id="@+id/textOverview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/md_white_1000"
+            android:layout_below="@id/textMovieGenres"
+            style="@style/Text.Heading.Small"
+            android:text="@string/detail_overview"
+            android:layout_marginTop="32dp"
+            app:layout_constraintTop_toBottomOf="@+id/imageMoviePoster" android:layout_marginStart="16dp"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+            android:id="@+id/textMovieOverview"
+            style="@style/Text.Body"
+            android:textColor="@color/md_white_1000"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textOverview"
+            tools:text="Amazing movie" android:layout_marginStart="16dp"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/textOverview" android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+</android.support.constraint.ConstraintLayout>
