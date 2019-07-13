@@ -1,10 +1,8 @@
 package com.guilhermelucas.moviedatabase.home
 
-import android.support.v7.widget.RecyclerView
 import com.guilhermelucas.moviedatabase.home.adapter.HomeAdapter
-import com.guilhermelucas.moviedatabase.home.adapter.item.AdViewHolder
 import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterItem
-import com.guilhermelucas.moviedatabase.home.adapter.item.MovieViewHolder
+import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterViewHolder
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -134,11 +132,10 @@ class HomePresenter(
         }
     }
 
-    override fun onBindRepositoryRowViewAtPosition(holder: RecyclerView.ViewHolder, position: Int) {
-        if (holder is MovieViewHolder)
-            return holder.bind(repository.getAdapterItem(position) as AdapterItem.MovieItem)
-        else if (holder is AdViewHolder)
-            return holder.bind(repository.getAdapterItem(position) as AdapterItem.AdItem)
+    override fun onBindRepositoryRowViewAtPosition(holder: AdapterViewHolder, position: Int) {
+        repository.getAdapterItem(position)?.let {
+            holder.bind(it)
+        }
     }
 
     override fun getItemsCount(): Int {

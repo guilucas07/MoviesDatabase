@@ -10,13 +10,13 @@ class HomeAdapter(
     private val presenter: Presenter,
     private val clickListener: (position: Int) -> Unit
 ) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    RecyclerView.Adapter<AdapterViewHolder>() {
 
     enum class ViewHolderType {
         MOVIE, AD
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdapterViewHolder {
         return when (viewType) {
             ViewHolderType.AD.ordinal -> {
                 val view = LayoutInflater.from(parent.context).inflate(R.layout.adapter_ad_item, parent, false)
@@ -33,11 +33,11 @@ class HomeAdapter(
 
     override fun getItemCount() = presenter.getItemsCount()
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) =
+    override fun onBindViewHolder(holder: AdapterViewHolder, position: Int) =
         presenter.onBindRepositoryRowViewAtPosition(holder, position)
 
     interface Presenter {
-        fun onBindRepositoryRowViewAtPosition(holder: RecyclerView.ViewHolder, position: Int)
+        fun onBindRepositoryRowViewAtPosition(holder: AdapterViewHolder, position: Int)
         fun getItemsCount(): Int
         fun getSpanSize(adapterPosition: Int): Int
         fun getItemViewHolder(adapterPosition: Int): ViewHolderType
