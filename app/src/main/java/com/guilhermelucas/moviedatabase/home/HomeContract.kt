@@ -3,8 +3,8 @@ package com.guilhermelucas.moviedatabase.home
 import com.guilhermelucas.moviedatabase.base.BasePresenter
 import com.guilhermelucas.moviedatabase.base.BaseView
 import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterItem
-import com.guilhermelucas.moviedatabase.model.MovieVO
-import com.guilhermelucas.moviedatabase.model.PromotionAd
+import com.guilhermelucas.moviedatabase.domain.model.MovieVO
+import com.guilhermelucas.moviedatabase.domain.model.PromotionAd
 
 interface HomeContract {
     interface View : BaseView {

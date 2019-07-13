@@ -1,9 +1,9 @@
 package com.guilhermelucas.moviedatabase.api
 
 import com.guilhermelucas.moviedatabase.data.Cache
-import com.guilhermelucas.moviedatabase.model.Genre
-import com.guilhermelucas.moviedatabase.model.Movie
-import com.guilhermelucas.moviedatabase.model.MoviesSearchResponse
+import com.guilhermelucas.moviedatabase.domain.model.Genre
+import com.guilhermelucas.moviedatabase.domain.model.Movie
+import com.guilhermelucas.moviedatabase.domain.model.MoviesSearchResponse
 import com.squareup.moshi.FromJson
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.ToJson

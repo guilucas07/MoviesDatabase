@@ -4,8 +4,8 @@ import com.guilhermelucas.moviedatabase.api.MovieDataSource
 import com.guilhermelucas.moviedatabase.data.Cache
 import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterItem
 import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterMovieItem
-import com.guilhermelucas.moviedatabase.model.Movie
-import com.guilhermelucas.moviedatabase.model.MovieVO
+import com.guilhermelucas.moviedatabase.domain.model.Movie
+import com.guilhermelucas.moviedatabase.domain.model.MovieVO
 import com.guilhermelucas.moviedatabase.util.MovieImageUrlBuilder
 import io.reactivex.Observable
 import java.text.FieldPosition

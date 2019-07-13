@@ -2,7 +2,7 @@ package com.guilhermelucas.moviedatabase.detail.movie
 
 import com.guilhermelucas.moviedatabase.base.BasePresenter
 import com.guilhermelucas.moviedatabase.base.BaseView
-import com.guilhermelucas.moviedatabase.model.MovieVO
+import com.guilhermelucas.moviedatabase.domain.model.MovieVO
 
 interface DetailContract {
     interface View : BaseView {

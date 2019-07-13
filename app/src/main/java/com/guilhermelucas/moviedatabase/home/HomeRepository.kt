@@ -8,10 +8,10 @@ import com.guilhermelucas.moviedatabase.firebase.RemoteConfig
 import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterAdItem
 import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterItem
 import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterMovieItem
-import com.guilhermelucas.moviedatabase.model.Genre
-import com.guilhermelucas.moviedatabase.model.Movie
-import com.guilhermelucas.moviedatabase.model.MovieVO
-import com.guilhermelucas.moviedatabase.model.PromotionAd
+import com.guilhermelucas.moviedatabase.domain.model.Genre
+import com.guilhermelucas.moviedatabase.domain.model.Movie
+import com.guilhermelucas.moviedatabase.domain.model.MovieVO
+import com.guilhermelucas.moviedatabase.domain.model.PromotionAd
 import com.guilhermelucas.moviedatabase.util.MovieImageUrlBuilder
 import io.reactivex.Observable
 import io.reactivex.functions.BiFunction

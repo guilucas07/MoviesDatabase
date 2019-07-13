@@ -20,8 +20,8 @@ import com.guilhermelucas.moviedatabase.detail.promotion.DetailPromotionAdActivi
 import com.guilhermelucas.moviedatabase.firebase.RemoteConfig
 import com.guilhermelucas.moviedatabase.home.adapter.HomeAdapter
 import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterItem
-import com.guilhermelucas.moviedatabase.model.MovieVO
-import com.guilhermelucas.moviedatabase.model.PromotionAd
+import com.guilhermelucas.moviedatabase.domain.model.MovieVO
+import com.guilhermelucas.moviedatabase.domain.model.PromotionAd
 import com.guilhermelucas.moviedatabase.util.MovieImageUrlBuilder
 import kotlinx.android.synthetic.main.home_activity.*
 import android.util.Pair as UtilPair

@@ -13,8 +13,8 @@ import com.guilhermelucas.moviedatabase.detail.movie.DetailActivity
 import com.guilhermelucas.moviedatabase.firebase.RemoteConfig
 import com.guilhermelucas.moviedatabase.home.adapter.HomeAdapter
 import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterItem
-import com.guilhermelucas.moviedatabase.model.MovieVO
-import com.guilhermelucas.moviedatabase.model.PromotionAd
+import com.guilhermelucas.moviedatabase.domain.model.MovieVO
+import com.guilhermelucas.moviedatabase.domain.model.PromotionAd
 import com.guilhermelucas.moviedatabase.util.MovieImageUrlBuilder
 import kotlinx.android.synthetic.main.detail_promotion_activity.*
 

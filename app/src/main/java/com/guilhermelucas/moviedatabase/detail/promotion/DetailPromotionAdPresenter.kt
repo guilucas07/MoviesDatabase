@@ -1,7 +1,7 @@
 package com.guilhermelucas.moviedatabase.detail.promotion
 
 import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterMovieItem
-import com.guilhermelucas.moviedatabase.model.PromotionAd
+import com.guilhermelucas.moviedatabase.domain.model.PromotionAd
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers

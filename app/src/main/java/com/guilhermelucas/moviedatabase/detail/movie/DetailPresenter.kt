@@ -1,6 +1,6 @@
 package com.guilhermelucas.moviedatabase.detail.movie
 
-import com.guilhermelucas.moviedatabase.model.MovieVO
+import com.guilhermelucas.moviedatabase.domain.model.MovieVO
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers

@@ -8,7 +8,7 @@ import com.guilhermelucas.moviedatabase.R
 import com.guilhermelucas.moviedatabase.api.MovieDataSource
 import com.guilhermelucas.moviedatabase.base.BaseActivity
 import com.guilhermelucas.moviedatabase.firebase.RemoteConfig
-import com.guilhermelucas.moviedatabase.model.MovieVO
+import com.guilhermelucas.moviedatabase.domain.model.MovieVO
 import com.guilhermelucas.moviedatabase.util.MovieImageUrlBuilder
 import com.guilhermelucas.moviedatabase.util.loadFromUrl
 import com.guilhermelucas.moviedatabase.viewer.ImageViewer
