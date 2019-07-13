@@ -16,7 +16,6 @@ import com.guilhermelucas.moviedatabase.viewer.ImageViewer
 import kotlinx.android.synthetic.main.detail_activity.*
 import java.text.DateFormat
 
-
 class DetailActivity : BaseActivity(), DetailContract.View {
 
     private lateinit var presenter: DetailPresenter
@@ -29,7 +28,9 @@ class DetailActivity : BaseActivity(), DetailContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.detail_activity)
 
-        setSupportActionBar(toolbar)
+//        collapsing_toolbar.title = title
+//        collapsingToolbarLayout.setTitle(title)
+//        setSupportActionBar(toolbar)
         supportActionBar?.let {
             it.setHomeButtonEnabled(true)
             it.setDisplayHomeAsUpEnabled(true)
@@ -76,15 +77,19 @@ class DetailActivity : BaseActivity(), DetailContract.View {
             .apply(RequestOptions().placeholder(R.drawable.ic_image_placeholder))
             .into(imageMoviePoster)
 
-        movie.backdropUrl?.let {
-            textMovieBackdrop.visibility = View.VISIBLE
-            textMovieBackdrop.setOnClickListener {
-                presenter.seeMovieBackdrop(movie)
-            }
+        Glide.with(baseContext)
+            .load(movie.backdropUrl)
+            .apply(RequestOptions().placeholder(R.drawable.ic_image_placeholder))
+            .into(imageMovieBackdrop)
+
+        imageMovieBackdrop.setOnClickListener {
+            presenter.seeMovieBackdrop(movie)
         }
 
-        if (textMovieOverview.text.isNullOrEmpty())
+        if (textMovieOverview.text.isNullOrEmpty()) {
+            textOverview.visibility = View.GONE
             textMovieOverview.visibility = View.GONE
+        }
 
     }
 
