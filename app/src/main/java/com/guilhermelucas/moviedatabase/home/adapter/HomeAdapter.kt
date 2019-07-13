@@ -7,36 +7,39 @@ import com.guilhermelucas.moviedatabase.R
 import com.guilhermelucas.moviedatabase.home.adapter.item.*
 
 class HomeAdapter(
-    private var movies: List<AdapterItem>,
+    private val presenter: Presenter,
     private val clickListener: (position: Int) -> Unit
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
+    enum class ViewHolderType {
+        MOVIE, AD
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return if (viewType == 0) {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.adapter_ad_item, parent, false)
-            AdViewHolder(view)
-        } else {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.movie_item, parent, false)
-            MovieViewHolder(view)
+        return when (viewType) {
+            ViewHolderType.AD.ordinal -> {
+                val view = LayoutInflater.from(parent.context).inflate(R.layout.adapter_ad_item, parent, false)
+                AdViewHolder(clickListener, view)
+            }
+            else -> {
+                val view = LayoutInflater.from(parent.context).inflate(R.layout.movie_item, parent, false)
+                MovieViewHolder(clickListener, view)
+            }
         }
     }
 
-    override fun getItemViewType(position: Int): Int {
-        return if (movies[position] is AdapterAdItem) 0 else 1
+    override fun getItemViewType(position: Int): Int = presenter.getItemViewHolder(position).ordinal
+
+    override fun getItemCount() = presenter.getItemsCount()
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) =
+        presenter.onBindRepositoryRowViewAtPosition(holder, position)
+
+    interface Presenter {
+        fun onBindRepositoryRowViewAtPosition(holder: RecyclerView.ViewHolder, position: Int)
+        fun getItemsCount(): Int
+        fun getItemViewHolder(adapterPosition: Int): ViewHolderType
     }
 
-    override fun getItemCount() = movies.size
-
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (holder is MovieViewHolder)
-            return holder.bind(movies[position] as AdapterMovieItem, clickListener)
-        else if (holder is AdViewHolder)
-            return holder.bind(movies[position] as AdapterAdItem, clickListener)
-    }
-
-    fun addMoreItems(newMovies: List<AdapterItem>) {
-        movies = newMovies
-        notifyDataSetChanged()
-    }
 }

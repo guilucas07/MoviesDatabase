@@ -30,8 +30,10 @@ class HomeActivity : BaseActivity(), HomeContract.View {
 
     private lateinit var presenter: HomePresenter
     private var loadingMoreItems = false
-    private val adapter = HomeAdapter(arrayListOf()) {
-        presenter.onItemClick(it)
+    private val adapter by lazy {
+        HomeAdapter(presenter as HomeAdapter.Presenter) {
+            presenter.onItemClick(it)
+        }
     }
     private var searchViewMenu: MenuItem? = null
 
@@ -73,8 +75,7 @@ class HomeActivity : BaseActivity(), HomeContract.View {
     /**  Override HomeContract.View methods  **/
     /******************************************/
     override fun onLoadMovies(movies: List<AdapterItem>) {
-        adapter.addMoreItems(movies)
-
+        adapter.notifyDataSetChanged()
         verifyRecyclerViewVisibility()
     }
 
@@ -186,6 +187,7 @@ class HomeActivity : BaseActivity(), HomeContract.View {
             recyclerViewMovies.visibility = View.GONE
         }
     }
+
 }
 
 

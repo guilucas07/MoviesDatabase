@@ -6,6 +6,7 @@ import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterItem
 import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterMovieItem
 import com.guilhermelucas.moviedatabase.domain.model.Movie
 import com.guilhermelucas.moviedatabase.domain.model.MovieVO
+import com.guilhermelucas.moviedatabase.domain.model.toMovieVO
 import com.guilhermelucas.moviedatabase.util.MovieImageUrlBuilder
 import io.reactivex.Observable
 import java.text.FieldPosition
@@ -20,7 +21,7 @@ class DetailPromotionAdRepository(
     fun getMovies(partialName: String): Observable<List<AdapterItem>> {
         return movieDataSource.getMovie(partialName).flatMap { ret ->
             Observable.fromIterable(ret).map {
-                val item = AdapterMovieItem(convertToMovieVO(it))
+                val item = AdapterMovieItem(it.toMovieVO(imageUrlBuilder))
                 showedItems.add(item)
                 item
             }.toList().toObservable()
@@ -33,34 +34,6 @@ class DetailPromotionAdRepository(
         return null
     }
 
-    private fun convertToMovieVO(movie: Movie): MovieVO {
-        var posterUrl: String? = null
-        var backdropUrl: String? = null
-
-        movie.posterPath?.let {
-            posterUrl = imageUrlBuilder.buildPosterUrl(it)
-        }
-
-        movie.backdropPath?.let {
-            backdropUrl = imageUrlBuilder.buildBackdropUrl(it)
-        }
-
-        val genres = if (!movie.genres.isNullOrEmpty()) {
-            movie.genres
-        } else {
-            Cache.genres.filter { movie.genreIds?.contains(it.id) == true }
-        }
-
-        return MovieVO(
-            movie.id,
-            movie.title,
-            movie.overview,
-            genres,
-            movie.voteAverage,
-            posterUrl,
-            backdropUrl,
-            movie.releaseDate
-        )
-    }
-
+    //TODO add this on repository interface
+    fun getLoadedItems() : Int = showedItems.size
 }

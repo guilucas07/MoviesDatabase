@@ -9,10 +9,9 @@ import com.guilhermelucas.moviedatabase.util.loadDrawable
 import com.guilhermelucas.moviedatabase.util.loadFromUrl
 import kotlinx.android.synthetic.main.adapter_ad_item.view.*
 
-class AdViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class AdViewHolder(val clickListener: (position: Int) -> Unit, itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    fun bind(adapterItem: AdapterAdItem, clickListener: (position: Int) -> Unit) {
-
+    fun bind(adapterItem: AdapterAdItem) {
         val promotion = adapterItem.promotionAdItem
         itemView.textAdTitle.text = promotion.title
         itemView.textAdAction.text = promotion.callToActionText

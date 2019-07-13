@@ -26,8 +26,10 @@ class DetailPromotionAdActivity : BaseActivity(), DetailPromotionAdContract.View
 
     private lateinit var presenter: DetailPromotionAdContract.Presenter
     private var loadingMoreItems = false
-    private val adapter = HomeAdapter(arrayListOf()) {
-        presenter.onItemClick(it)
+    private val adapter by lazy {
+        HomeAdapter(presenter as HomeAdapter.Presenter) {
+            presenter.onItemClick(it)
+        }
     }
 
     override fun goToDetail(movie: MovieVO) {
@@ -87,7 +89,7 @@ class DetailPromotionAdActivity : BaseActivity(), DetailPromotionAdContract.View
     /**  Override HomeContract.View methods  **/
     /******************************************/
     override fun onLoadMovies(movies: List<AdapterItem>) {
-        adapter.addMoreItems(movies)
+        adapter.notifyDataSetChanged()
     }
 
     override fun onSupportNavigateUp(): Boolean {
