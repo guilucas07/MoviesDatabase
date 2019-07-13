@@ -5,6 +5,8 @@ import android.view.View
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.guilhermelucas.moviedatabase.R
+import com.guilhermelucas.moviedatabase.util.loadDrawable
+import com.guilhermelucas.moviedatabase.util.loadFromUrl
 import kotlinx.android.synthetic.main.adapter_ad_item.view.*
 
 class AdViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -18,10 +20,6 @@ class AdViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             clickListener(adapterPosition)
         }
 
-        Glide.with(itemView)
-            .load(itemView.context.getDrawable(R.drawable.marvel_placeholder))
-            .apply(RequestOptions().placeholder(R.drawable.ic_image_placeholder))
-            .into(itemView.imageAdPoster)
-
+        itemView.imageAdPoster.loadDrawable(R.drawable.marvel_placeholder)
     }
 }

@@ -3,7 +3,6 @@ package com.guilhermelucas.moviedatabase.api
 import com.guilhermelucas.moviedatabase.domain.model.GenreResponse
 import com.guilhermelucas.moviedatabase.domain.model.Movie
 import com.guilhermelucas.moviedatabase.domain.model.MoviesSearchResponse
-import com.guilhermelucas.moviedatabase.model.*
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Path

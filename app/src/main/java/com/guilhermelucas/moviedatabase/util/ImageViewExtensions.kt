@@ -1,5 +1,7 @@
 package com.guilhermelucas.moviedatabase.util
 
+import android.support.annotation.DrawableRes
+import android.support.v4.content.res.ResourcesCompat
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
@@ -13,6 +15,10 @@ fun ImageView.loadFromUrl(url: String?) =
         .transition(DrawableTransitionOptions.withCrossFade(factory))
         .apply(requestOptions)
         .into(this)
+
+fun ImageView.loadDrawable(@DrawableRes resourceId: Int) {
+    setImageDrawable(ResourcesCompat.getDrawable(resources, resourceId, null))
+}
 
 private val factory by lazy {
     DrawableCrossFadeFactory.Builder().setCrossFadeEnabled(true).build()

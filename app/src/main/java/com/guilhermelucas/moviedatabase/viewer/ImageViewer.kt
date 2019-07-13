@@ -6,6 +6,7 @@ import com.guilhermelucas.moviedatabase.R
 import com.guilhermelucas.moviedatabase.base.BaseActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.guilhermelucas.moviedatabase.util.loadFromUrl
 import kotlinx.android.synthetic.main.backdrop_viewer_activity.*
 
 class ImageViewer : BaseActivity() {
@@ -47,10 +48,7 @@ class ImageViewer : BaseActivity() {
     }
 
     private fun loadImage() {
-        Glide.with(baseContext)
-            .load(imageUrl)
-            .apply(RequestOptions().placeholder(R.drawable.ic_image_placeholder))
-            .into(imageMovieBackdrop)
+        imageMovieBackdrop.loadFromUrl(imageUrl)
     }
 
     private fun setupUI() {

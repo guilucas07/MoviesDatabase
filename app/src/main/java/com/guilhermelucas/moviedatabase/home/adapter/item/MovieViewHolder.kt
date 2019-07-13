@@ -5,6 +5,7 @@ import android.view.View
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.guilhermelucas.moviedatabase.R
+import com.guilhermelucas.moviedatabase.util.loadFromUrl
 import kotlinx.android.synthetic.main.movie_item.view.*
 import java.text.DateFormat
 
@@ -32,9 +33,6 @@ class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             itemView.textVoteAverage.visibility = View.GONE
         }
 
-        Glide.with(itemView)
-            .load(movie.posterUrl)
-            .apply(RequestOptions().placeholder(R.drawable.ic_image_placeholder))
-            .into(itemView.imageMoviePoster)
+        itemView.imageMoviePoster.loadFromUrl(movie.posterUrl)
     }
 }
