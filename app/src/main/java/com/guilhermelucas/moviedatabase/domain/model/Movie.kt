@@ -1,6 +1,5 @@
 package com.guilhermelucas.moviedatabase.domain.model
 
-import com.guilhermelucas.moviedatabase.data.Cache
 import com.guilhermelucas.moviedatabase.util.MovieImageUrlBuilder
 import com.squareup.moshi.Json
 import java.util.*
@@ -30,11 +29,11 @@ fun Movie.toMovieVO(imageUrlBuilder: MovieImageUrlBuilder): MovieVO {
         backdropUrl = imageUrlBuilder.buildBackdropUrl(it)
     }
 
-    val genres = if (!genres.isNullOrEmpty()) {
-        genres
-    } else {
-        Cache.genres.filter { genreIds?.contains(it.id) == true }
-    }
+//    val genres = if (!genres.isNullOrEmpty()) {
+//        genres
+//    } else {
+//        Cache.genres.filter { genreIds?.contains(it.id) == true }
+//    }
 
     return MovieVO(
         id,

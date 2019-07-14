@@ -14,11 +14,11 @@ class DetailRepository(
 ) {
 
     fun loadMovie(movieId: Long): Observable<MovieVO> {
-        val cached = Cache.movies.findLast { it.id.toLong() == movieId }
-
-        cached?.let { movie ->
-            return Observable.fromArray(movie).map { it.toMovieVO(imageUrlBuilder) }
-        }
+//        val cached = Cache.movies.findLast { it.id.toLong() == movieId }
+//
+//        cached?.let { movie ->
+//            return Observable.fromArray(movie).map { it.toMovieVO(imageUrlBuilder) }
+//        }
 
         return movieDataSource.getMovie(movieId).map {
             it.toMovieVO(imageUrlBuilder)

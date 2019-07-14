@@ -30,11 +30,8 @@ class HomeRepository(
     }
 
     fun getMovie(partialName: String): Observable<List<AdapterItem>> {
-        return movieDataSource.getMovie(partialName).flatMap { ret ->
-            Observable.fromIterable(ret).map {
-                AdapterItem.MovieItem(it.toMovieVO(imageUrlBuilder))
-            }.toList().toObservable()
-        }
+        return movieDataSource.getMovie(partialName)
+            .map { it.map { movie -> AdapterItem.MovieItem(movie.toMovieVO(imageUrlBuilder)) } }
     }
 
     private fun getDiscoveryMovies(request: Int): Observable<List<Movie>> {
@@ -49,7 +46,6 @@ class HomeRepository(
                 val moviesWithGenres = movies.map { movie ->
                     movie.copy(genres = genres.filter { movie.genreIds?.contains(it.id) == true })
                 }
-                Cache.cacheMovies(moviesWithGenres)
                 moviesWithGenres
             })
     }
@@ -101,7 +97,7 @@ class HomeRepository(
         return null
     }
 
-    fun getLoadedItems() : Int = loadedItems.size
+    fun getLoadedItems(): Int = loadedItems.size
 
     private val loadedItems = ArrayList<AdapterItem>()
 

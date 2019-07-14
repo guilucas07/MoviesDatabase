@@ -1,5 +1,6 @@
 package com.guilhermelucas.moviedatabase.home
 
+import android.util.Log
 import com.guilhermelucas.moviedatabase.home.adapter.HomeAdapter
 import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterItem
 import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterViewHolder
@@ -107,26 +108,22 @@ class HomePresenter(
             shouldLoadPromotionAds = true
             this.repositoryRequestStrategy = repositoryRequestStrategy
 
+
             val observer =
                 repository.loadMoreData(repositoryRequestStrategy)
                     .observeOn(AndroidSchedulers.mainThread())
-                    .doOnNext {
+                    .subscribeOn(Schedulers.io())
+                    .subscribe({
                         view?.onLoadMovies(it)
 
                         activityMode = ActivityMode.DEFAULT
                         isLoading = false
                         view?.loading(isLoading)
-
-                    }.doOnComplete {
+                    }, {
                         activityMode = ActivityMode.DEFAULT
                         isLoading = false
                         view?.loading(isLoading)
-
-                    }.doOnError {
-                        activityMode = ActivityMode.DEFAULT
-                        isLoading = false
-                        view?.loading(isLoading)
-                    }.subscribe()
+                    })
             compositeDisposable.add(observer)
 
         }
