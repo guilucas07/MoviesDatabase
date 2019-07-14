@@ -15,13 +15,7 @@ fun Movie.toMovieVO(imageUrlBuilder: MovieImageUrlBuilder): MovieVO {
     backdropPath?.let {
         backdropUrl = imageUrlBuilder.buildBackdropUrl(it)
     }
-
-//    val genres = if (!genres.isNullOrEmpty()) {
-//        genres
-//    } else {
-//        Cache.genres.filter { genreIds?.contains(it.id) == true }
-//    }
-
+    
     return MovieVO(
         id,
         title,

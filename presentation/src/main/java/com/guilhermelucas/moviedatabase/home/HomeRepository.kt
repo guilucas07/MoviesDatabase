@@ -4,7 +4,7 @@ import android.content.Context
 import com.guilhermelucas.data.api.MovieDataSource
 import com.guilhermelucas.data.firebase.RemoteConfig
 import com.guilhermelucas.domain.Movie
-import com.guilhermelucas.domain.PromotionAd
+import com.guilhermelucas.moviedatabase.model.PromotionAd
 import com.guilhermelucas.moviedatabase.R
 import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterItem
 import com.guilhermelucas.moviedatabase.model.toMovieVO

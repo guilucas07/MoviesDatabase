@@ -1,7 +1,7 @@
 package com.guilhermelucas.moviedatabase.detail.promotion
 
 import com.guilhermelucas.data.BaseSchedulerProvider
-import com.guilhermelucas.domain.PromotionAd
+import com.guilhermelucas.moviedatabase.model.PromotionAd
 import com.guilhermelucas.moviedatabase.home.adapter.HomeAdapter
 import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterItem
 import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterViewHolder

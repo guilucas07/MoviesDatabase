@@ -1,6 +1,6 @@
 package com.guilhermelucas.moviedatabase.home
 
-import com.guilhermelucas.domain.PromotionAd
+import com.guilhermelucas.moviedatabase.model.PromotionAd
 import com.guilhermelucas.moviedatabase.base.BasePresenter
 import com.guilhermelucas.moviedatabase.base.BaseView
 import com.guilhermelucas.moviedatabase.home.adapter.HomeAdapter

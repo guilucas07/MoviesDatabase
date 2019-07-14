@@ -14,10 +14,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.guilhermelucas.data.api.MovieDataSource
 import com.guilhermelucas.data.firebase.RemoteConfig
-import com.guilhermelucas.domain.PromotionAd
+import com.guilhermelucas.moviedatabase.model.PromotionAd
 import com.guilhermelucas.moviedatabase.R
 import com.guilhermelucas.moviedatabase.base.BaseActivity
 import com.guilhermelucas.moviedatabase.detail.movie.DetailActivity
+import com.guilhermelucas.moviedatabase.detail.promotion.DetailPromotionAdActivity
 import com.guilhermelucas.moviedatabase.home.adapter.HomeAdapter
 import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterItem
 import com.guilhermelucas.moviedatabase.model.MovieVO
@@ -87,11 +88,10 @@ class HomeActivity : BaseActivity(), HomeContract.View {
     }
 
     override fun goToPromotionDetail(promotionAd: PromotionAd) {
-        //TODO
-//        val intent = Intent(baseContext, DetailPromotionAdActivity::class.java).apply {
-//            putExtra(DetailPromotionAdActivity.ExtraParam.SERIALIZABLE_PROMOTION_AD, promotionAd)
-//        }
-//        startActivity(intent)
+        val intent = Intent(baseContext, DetailPromotionAdActivity::class.java).apply {
+            putExtra(DetailPromotionAdActivity.ExtraParam.SERIALIZABLE_PROMOTION_AD, promotionAd)
+        }
+        startActivity(intent)
     }
 
     override fun loading(visible: Boolean) {

@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.guilhermelucas.data.api.MovieDataSource
 import com.guilhermelucas.data.firebase.RemoteConfig
-import com.guilhermelucas.domain.PromotionAd
+import com.guilhermelucas.moviedatabase.model.PromotionAd
 import com.guilhermelucas.moviedatabase.R
 import com.guilhermelucas.moviedatabase.base.BaseActivity
 import com.guilhermelucas.moviedatabase.detail.movie.DetailActivity
