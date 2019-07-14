@@ -124,7 +124,7 @@ class DetailPromotionAdActivity : BaseActivity(), DetailPromotionAdContract.View
             }
         })
 
-        val gridLayoutManager = GridLayoutManager(baseContext, 2, LinearLayoutManager.VERTICAL, false)
+        val gridLayoutManager = GridLayoutManager(baseContext, 2, RecyclerView.VERTICAL, false)
         recyclerPromotionAdMovies.layoutManager = gridLayoutManager
     }
 
