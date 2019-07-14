@@ -1,7 +1,8 @@
 package com.guilhermelucas.data.api
 
 import com.guilhermelucas.data.model.GenreResponse
-import com.guilhermelucas.data.model.MovieApiModel
+import com.guilhermelucas.data.model.MovieDetailModel
+import com.guilhermelucas.data.model.MovieListModel
 import com.guilhermelucas.data.model.MoviesSearchResponse
 import io.reactivex.Observable
 import retrofit2.http.GET
@@ -37,7 +38,7 @@ interface TmdbApi {
             @Path("id") id: Long,
             @Query("api_key") apiKey: String,
             @Query("language") language: String
-    ): Observable<MovieApiModel>
+    ): Observable<MovieDetailModel>
 
     @GET("search/movie")
     fun searchMovie(

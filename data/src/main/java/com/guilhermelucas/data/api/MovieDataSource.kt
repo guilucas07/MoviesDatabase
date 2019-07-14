@@ -1,6 +1,6 @@
 package com.guilhermelucas.data.api
 
-import com.guilhermelucas.data.model.MovieApiModel
+import com.guilhermelucas.data.model.MovieListModel
 import com.guilhermelucas.data.model.toDomainMovie
 import com.guilhermelucas.domain.Genre
 import com.guilhermelucas.domain.Movie
@@ -41,8 +41,7 @@ class MovieDataSource private constructor() {
         ).map { it.genres }.cacheWithInitialCapacity(50)
 
     fun getMovie(movieId: Long): Observable<Movie> {
-        val movie = tmdbApi.movie(movieId, dataSourceSettings.getApiKey(), dataSourceSettings.getLanguage())
-        return addGenres(movie)
+        return tmdbApi.movie(movieId, dataSourceSettings.getApiKey(), dataSourceSettings.getLanguage()).map { it.toDomainMovie() }
     }
 
     fun getMovie(fullOrPartialName: String, loadGenres: Boolean = false): Observable<List<Movie>> {
@@ -100,11 +99,11 @@ class MovieDataSource private constructor() {
             topRated.map { it.map { it.toDomainMovie() } }
     }
 
-    private fun mergeWithGenres(moviesList: Observable<List<MovieApiModel>>): Observable<List<Movie>> {
-        return Observable.zip<List<Genre>, List<MovieApiModel>, List<Movie>>(
+    private fun mergeWithGenres(moviesList: Observable<List<MovieListModel>>): Observable<List<Movie>> {
+        return Observable.zip<List<Genre>, List<MovieListModel>, List<Movie>>(
             getGenres(),
             moviesList,
-            BiFunction<List<Genre>, List<MovieApiModel>, List<Movie>> { genres, movies ->
+            BiFunction<List<Genre>, List<MovieListModel>, List<Movie>> { genres, movies ->
                 movies.map { movie ->
                     movie.toDomainMovie().copy(genres = genres.filter { movie.genreIds?.contains(it.id) == true })
                 }
@@ -112,11 +111,11 @@ class MovieDataSource private constructor() {
             })
     }
 
-    private fun addGenres(movie: Observable<MovieApiModel>): Observable<Movie> {
-        return Observable.zip<List<Genre>, MovieApiModel, Movie>(
+    private fun addGenres(movie: Observable<MovieListModel>): Observable<Movie> {
+        return Observable.zip<List<Genre>, MovieListModel, Movie>(
             getGenres(),
             movie,
-            BiFunction<List<Genre>, MovieApiModel, Movie> { genres, movieApi ->
+            BiFunction<List<Genre>, MovieListModel, Movie> { genres, movieApi ->
                 movieApi.toDomainMovie().copy(genres = genres.filter { movieApi.genreIds?.contains(it.id) == true })
             })
     }
