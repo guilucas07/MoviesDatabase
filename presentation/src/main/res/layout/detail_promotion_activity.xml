@@ -5,7 +5,7 @@
                 android:background="@color/md_blue_grey_800"
                 android:layout_height="match_parent">
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/toolbar"
             app:title=""
@@ -26,7 +26,7 @@
             tools:text="Confira todos os filmes dos estúdios Marvel"
             android:layout_height="wrap_content"/>
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerPromotionAdMovies"
             android:layout_width="match_parent"
             android:layout_below="@+id/textPromotionAdTitle"
@@ -35,6 +35,6 @@
             android:paddingTop="12dp"
             android:paddingBottom="12dp"
             tools:itemCount="10"
-            tools:listitem="@layout/movie_item"/>
+            tools:listitem="@layout/adapter_movie_item"/>
 
 </RelativeLayout>

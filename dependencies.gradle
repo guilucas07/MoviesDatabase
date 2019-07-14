@@ -1,0 +1,74 @@
+ext {
+    retrofitVersion = '2.4.0'
+    rxJavaVersion = '2.0.2'
+    jUnitVersion = '4.12'
+    mockitoVersion = '2.23.4'
+    roomVersion = '1.1.1'
+    firebaseCoreVersion = "17.0.0"
+    firebaseConfigVersion = "18.0.0"
+    crashlyticsVersion = '2.10.1'
+    designVersion = '1.0.0-rc01'
+    glideVersion = '4.8.0'
+    expressoVersion = '3.0.2'
+    appCompatVersion = '1.1.0-alpha03'
+    coreKtxVersion = '1.1.0-alpha05'
+    constraintLayoutVersion = '1.1.3'
+    recyclerViewVersion = '1.0.0'
+    runnerVersion = '1.1.2-alpha02'
+    lifecycleVersion = '2.0.0'
+    coreTestingVersion = '2.0.1'
+    moshiVersion = '2.3.0'
+
+    retrofit = [
+            retrofit      : "com.squareup.retrofit2:retrofit:$retrofitVersion",
+            moshiConverter: "com.squareup.retrofit2:converter-moshi:$retrofitVersion",
+            adapterRxJava : "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
+    ]
+
+    firebase = [
+            core       : "com.google.firebase:firebase-core:$firebaseCoreVersion",
+            config     : "com.google.firebase:firebase-config:$firebaseConfigVersion",
+            crashlytics: "com.crashlytics.sdk.android:crashlytics:$crashlyticsVersion"
+    ]
+
+    room = [
+            room       : "android.arch.persistence.room:rxjava2:$roomVersion",
+            roomRuntime: "android.arch.persistence.room:runtime:$roomVersion"
+    ]
+    roomCompiler = [
+            room: "android.arch.persistence.room:compiler:$roomVersion",
+    ]
+
+    rx = [
+            rxJava: "io.reactivex.rxjava2:rxandroid:$rxJavaVersion"
+    ]
+
+    androidSupport = [
+            androidXCompat  : "androidx.appcompat:appcompat:$appCompatVersion",
+            androidXCore    : "androidx.core:core-ktx:$coreKtxVersion",
+            constraintLayout: "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion",
+            recyclerView    : "androidx.recyclerview:recyclerview:$recyclerViewVersion",
+            lifecycle       : "androidx.lifecycle:lifecycle-extensions:$lifecycleVersion",
+            design          : "com.google.android.material:material:$designVersion"
+    ]
+
+    glide = [
+            glideVersion: "com.github.bumptech.glide:glide:$glideVersion"
+
+    ]
+    glideCompiler = [
+            glideCompiler: "com.github.bumptech.glide:compiler:$glideVersion"
+    ]
+
+    androidTest = [
+            runner  : "androidx.test:runner:$runnerVersion",
+            espresso: "com.android.support.test.espresso:espresso-core:$expressoVersion"
+    ]
+
+    unitTest = [
+            junit      : "junit:junit:$jUnitVersion",
+            mock       : "org.mockito:mockito-core:$mockitoVersion",
+            coreTesting: "androidx.arch.core:core-testing:$coreTestingVersion"
+    ]
+
+}

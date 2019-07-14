@@ -4,16 +4,17 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import com.guilhermelucas.moviedatabase.R
 import com.guilhermelucas.data.api.MovieDataSource
-import com.guilhermelucas.moviedatabase.base.BaseActivity
 import com.guilhermelucas.data.firebase.RemoteConfig
+import com.guilhermelucas.moviedatabase.R
+import com.guilhermelucas.moviedatabase.base.BaseActivity
 import com.guilhermelucas.moviedatabase.model.MovieVO
 import com.guilhermelucas.moviedatabase.util.MovieImageUrlBuilder
 import com.guilhermelucas.moviedatabase.util.loadFromUrl
 import com.guilhermelucas.moviedatabase.viewer.ImageViewer
 import kotlinx.android.synthetic.main.detail_activity.*
 import java.text.DateFormat
+import java.util.*
 
 class DetailActivity : BaseActivity(), DetailContract.View {
 
@@ -36,8 +37,7 @@ class DetailActivity : BaseActivity(), DetailContract.View {
 
         val itemId = intent?.extras?.getInt(ExtraParam.ITEM_ID, -1) ?: -1
         if (itemId == -1)
-            throw IllegalArgumentException(
-                "${ExtraParam.ITEM_ID} is necessary to this activity and " +
+            throw Throwable("${ExtraParam.ITEM_ID} is necessary to this activity and " +
                         "doesn't was informed. Check startActivity and try again'"
             )
 
@@ -67,7 +67,7 @@ class DetailActivity : BaseActivity(), DetailContract.View {
         textMovieOverview.text = movie.overview
         textMovieGenres.text = movie.genres?.joinToString(separator = ", ") { it.name }
 
-        val dateFormat = DateFormat.getDateInstance(DateFormat.SHORT, resources.configuration.locale)
+        val dateFormat = DateFormat.getDateInstance(DateFormat.SHORT, Locale.getDefault())
         textMovieReleaseDate.text = dateFormat.format(movie.releaseDate)
 
         imageMoviePoster.loadFromUrl(movie.posterUrl)

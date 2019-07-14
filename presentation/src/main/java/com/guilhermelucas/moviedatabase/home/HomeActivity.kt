@@ -5,20 +5,19 @@ import android.content.Context
 import android.content.Intent
 import android.nfc.tech.MifareUltralight.PAGE_SIZE
 import android.os.Bundle
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.SearchView
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.widget.SearchView
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.guilhermelucas.data.api.MovieDataSource
 import com.guilhermelucas.data.firebase.RemoteConfig
 import com.guilhermelucas.domain.PromotionAd
 import com.guilhermelucas.moviedatabase.R
 import com.guilhermelucas.moviedatabase.base.BaseActivity
 import com.guilhermelucas.moviedatabase.detail.movie.DetailActivity
-import com.guilhermelucas.moviedatabase.detail.promotion.DetailPromotionAdActivity
 import com.guilhermelucas.moviedatabase.home.adapter.HomeAdapter
 import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterItem
 import com.guilhermelucas.moviedatabase.model.MovieVO
@@ -149,10 +148,10 @@ class HomeActivity : BaseActivity(), HomeContract.View {
     private fun initRecycleView() {
         recyclerViewMovies.adapter = adapter
         recyclerViewMovies.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 val layoutManager: LinearLayoutManager =
-                    recyclerView?.layoutManager as LinearLayoutManager? ?: return
+                    recyclerView.layoutManager as LinearLayoutManager? ?: return
 
                 val visibleItemCount = layoutManager.childCount
                 val totalItemCount = layoutManager.itemCount
@@ -170,7 +169,7 @@ class HomeActivity : BaseActivity(), HomeContract.View {
             }
         })
 
-        val gridLayoutManager = GridLayoutManager(baseContext, 2, LinearLayoutManager.VERTICAL, false)
+        val gridLayoutManager = GridLayoutManager(baseContext, 2, RecyclerView.VERTICAL, false)
         gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
                 return presenter.getSpanSize(position)

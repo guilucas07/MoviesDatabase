@@ -1,8 +1,8 @@
 package com.guilhermelucas.moviedatabase.util
 
-import android.support.annotation.DrawableRes
-import android.support.v4.content.res.ResourcesCompat
 import android.widget.ImageView
+import androidx.annotation.DrawableRes
+import androidx.core.content.res.ResourcesCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions

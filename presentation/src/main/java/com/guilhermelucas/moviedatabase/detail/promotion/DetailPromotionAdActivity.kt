@@ -3,9 +3,9 @@ package com.guilhermelucas.moviedatabase.detail.promotion
 import android.content.Intent
 import android.nfc.tech.MifareUltralight
 import android.os.Bundle
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.guilhermelucas.data.api.MovieDataSource
 import com.guilhermelucas.data.firebase.RemoteConfig
 import com.guilhermelucas.domain.PromotionAd
@@ -103,10 +103,10 @@ class DetailPromotionAdActivity : BaseActivity(), DetailPromotionAdContract.View
     private fun initRecycleView() {
         recyclerPromotionAdMovies.adapter = adapter
         recyclerPromotionAdMovies.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 val layoutManager: LinearLayoutManager =
-                    recyclerView?.layoutManager as LinearLayoutManager? ?: return
+                    recyclerView.layoutManager as LinearLayoutManager? ?: return
 
                 val visibleItemCount = layoutManager.childCount
                 val totalItemCount = layoutManager.itemCount

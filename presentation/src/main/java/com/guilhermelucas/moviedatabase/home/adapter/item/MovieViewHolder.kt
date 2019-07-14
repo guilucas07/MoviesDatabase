@@ -2,7 +2,7 @@ package com.guilhermelucas.moviedatabase.home.adapter.item
 
 import android.view.View
 import com.guilhermelucas.moviedatabase.util.loadFromUrl
-import kotlinx.android.synthetic.main.movie_item.view.*
+import kotlinx.android.synthetic.main.adapter_movie_item.view.*
 import java.text.DateFormat
 import java.util.*
 
@@ -19,7 +19,11 @@ class MovieViewHolder(val clickListener: (position: Int) -> Unit, itemView: View
                 DateFormat.YEAR_FIELD,
                 Locale.getDefault()
             )
-        itemView.textMovieReleaseYear.text = dateFormat.format(movie.releaseDate)
+
+        movie.releaseDate?.run {
+            itemView.textMovieReleaseYear.text = dateFormat.format(this)
+        }
+
         itemView.setOnClickListener {
             clickListener(adapterPosition)
         }
