@@ -47,7 +47,6 @@ class MovieDataSource private constructor() {
     fun getMovie(fullOrPartialName: String, loadGenres: Boolean = false): Observable<List<Movie>> {
         val searchList = tmdbApi
             .searchMovie(fullOrPartialName, dataSourceSettings.getApiKey(), dataSourceSettings.getLanguage())
-            .cacheWithInitialCapacity(50)
             .map { it.results }
 
         return if (loadGenres)

@@ -27,8 +27,15 @@ class HomeRepository(
     }
 
     fun getMovie(partialName: String): Observable<List<AdapterItem>> {
+        loadedItems.clear()
         return movieDataSource.getMovie(partialName)
-            .map { it.map { movie -> AdapterItem.MovieItem(movie.toMovieVO(imageUrlBuilder)) } }
+            .map {
+                it.forEach { movie ->
+                    inflateAdapterItem(movie, false)
+                }
+                loadedItems
+            }
+        //AdapterItem.MovieItem(movie.toMovieVO(imageUrlBuilder))
     }
 
     fun loadMoreData(requestStrategy: RequestStrategy = RequestStrategy.NEXT_PAGE): Observable<List<AdapterItem>> {
@@ -49,9 +56,9 @@ class HomeRepository(
         }
     }
 
-    private fun inflateAdapterItem(movie: Movie) {
+    private fun inflateAdapterItem(movie: Movie, shouldAddAdItem: Boolean = true) {
         loadedItems.add(AdapterItem.MovieItem(movie.toMovieVO(imageUrlBuilder)))
-        if ((loadedItems.size + 1) % promotionItemInterval == 0)
+        if (shouldAddAdItem && ((loadedItems.size + 1) % promotionItemInterval == 0))
             loadedItems.add(getNextAdItem())
     }
 

@@ -14,7 +14,7 @@ class DetailPromotionAdRepository(
     private val showedItems = ArrayList<AdapterItem>()
 
     fun getMovies(partialName: String): Observable<List<AdapterItem>> {
-        return movieDataSource.getMovie(partialName).flatMap { ret ->
+        return movieDataSource.getMovie(partialName, true).flatMap { ret ->
             Observable.fromIterable(ret).map {
                 val item = AdapterItem.MovieItem(it.toMovieVO(imageUrlBuilder))
                 showedItems.add(item)
