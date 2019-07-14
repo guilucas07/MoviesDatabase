@@ -9,6 +9,7 @@ interface DetailContract {
         fun loadMovieDetail(movie: MovieVO)
         fun goToBackdropViewer(url: String)
         fun showError(error: Errors)
+        fun close()
     }
 
     interface Presenter : BasePresenter<View> {
@@ -17,6 +18,6 @@ interface DetailContract {
     }
 
     enum class Errors {
-        EMPTY_BACKDROP, EMPTY_POSTER
+        EMPTY_BACKDROP, EMPTY_POSTER, NETWORK, REQUEST_GENERIC_ERROR
     }
 }

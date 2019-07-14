@@ -11,9 +11,10 @@ interface HomeContract {
     interface View : BaseView {
         fun onLoadMovies(movies: List<AdapterItem>)
         fun goToDetail(movie: MovieVO)
-        fun goToPromotionDetail(promotionAd : PromotionAd)
+        fun goToPromotionDetail(promotionAd: PromotionAd)
         fun loading(visible: Boolean)
         fun moviesLoaded()
+        fun showError(error: Failure)
     }
 
     interface Presenter : BasePresenter<View>, HomeAdapter.Presenter {
@@ -23,5 +24,11 @@ interface HomeContract {
         fun onSwipeToRefresh()
         fun searchMovie(partialName: String)
         fun onCloseSearchBar(): Boolean
+    }
+
+    sealed class Failure(val errorMessage: String) {
+        class NetworkConnection : Failure("Verify your internet connection and try again!")
+        class GenericFailure(errorMessage: String) : Failure(errorMessage)
+
     }
 }

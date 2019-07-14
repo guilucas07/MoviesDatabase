@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -101,6 +102,17 @@ class HomeActivity : BaseActivity(), HomeContract.View {
 
     override fun moviesLoaded() {
         adapter.notifyDataSetChanged()
+    }
+
+    override fun showError(error: HomeContract.Failure) {
+        val message = when (error) {
+            is HomeContract.Failure.NetworkConnection -> getString(R.string.request_error_network)
+            else -> {
+                print(error.errorMessage)
+                getString(R.string.request_error_unknown)
+            }
+        }
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
     /***********************/

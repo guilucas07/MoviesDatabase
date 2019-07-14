@@ -8,6 +8,7 @@ import com.guilhermelucas.moviedatabase.util.SchedulerProvider
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import java.net.UnknownHostException
 
 class HomePresenter(
     private val repository: HomeRepository,
@@ -89,10 +90,13 @@ class HomePresenter(
             val disposable = repository.getMovie(partialName)
                 .observeOn(schedulers.ui())
                 .subscribeOn(schedulers.io())
-                .subscribe { listMovies ->
+                .subscribe({ listMovies ->
                     view?.onLoadMovies(listMovies)
                     activityMode = ActivityMode.SEARCH
-                }
+                }, {
+                    activityMode = ActivityMode.DEFAULT
+                    view?.showError(getErrorType(it))
+                })
 
             compositeDisposable.add(disposable)
         }
@@ -125,9 +129,17 @@ class HomePresenter(
                         activityMode = ActivityMode.DEFAULT
                         isLoading = false
                         view?.loading(isLoading)
+                        view?.showError(getErrorType(it))
                     })
             compositeDisposable.add(observer)
 
+        }
+    }
+
+    private fun getErrorType(throwable: Throwable): HomeContract.Failure {
+        return when (throwable) {
+            is UnknownHostException -> HomeContract.Failure.NetworkConnection()
+            else -> HomeContract.Failure.GenericFailure(throwable.message ?: throwable.localizedMessage)
         }
     }
 

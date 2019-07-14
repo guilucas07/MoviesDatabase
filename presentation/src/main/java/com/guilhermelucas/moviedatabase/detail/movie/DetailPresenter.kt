@@ -4,6 +4,7 @@ import com.guilhermelucas.data.BaseSchedulerProvider
 import com.guilhermelucas.moviedatabase.model.MovieVO
 import com.guilhermelucas.moviedatabase.util.SchedulerProvider
 import io.reactivex.disposables.Disposable
+import java.net.UnknownHostException
 
 class DetailPresenter(
     private val itemId: Int,
@@ -31,10 +32,20 @@ class DetailPresenter(
         disposable = repository.loadMovie(itemId.toLong())
             .subscribeOn(schedulers.io())
             .observeOn(schedulers.ui())
-            .subscribe { movieVO ->
+            .subscribe({ movieVO ->
                 view?.loadMovieDetail(movieVO)
                 disposable?.dispose()
-            }
+            }, {
+                view?.showError(getErrorType(it))
+                view?.close()
+            })
+    }
+
+    private fun getErrorType(throwable: Throwable): DetailContract.Errors {
+        return when (throwable) {
+            is UnknownHostException -> DetailContract.Errors.NETWORK
+            else -> DetailContract.Errors.REQUEST_GENERIC_ERROR
+        }
     }
 
     override fun seeMovieBackdrop(movie: MovieVO) {

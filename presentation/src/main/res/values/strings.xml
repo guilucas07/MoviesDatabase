@@ -14,5 +14,7 @@
     <string name="detail_error_poster_unavailable">Poster unavailable</string>
     <string name="promotion_ad_check_out">Check out</string>
     <string name="promotion_ad_title">Check out %1$s movies</string>
+    <string name="request_error_network">Connection error. Check your internet and try again</string>
+    <string name="request_error_unknown">An error has occurred on connection with server. Try again later</string>
 
 </resources>

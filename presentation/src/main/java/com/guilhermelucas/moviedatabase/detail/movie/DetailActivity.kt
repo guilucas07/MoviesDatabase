@@ -37,7 +37,8 @@ class DetailActivity : BaseActivity(), DetailContract.View {
 
         val itemId = intent?.extras?.getInt(ExtraParam.ITEM_ID, -1) ?: -1
         if (itemId == -1)
-            throw Throwable("${ExtraParam.ITEM_ID} is necessary to this activity and " +
+            throw Throwable(
+                "${ExtraParam.ITEM_ID} is necessary to this activity and " +
                         "doesn't was informed. Check startActivity and try again'"
             )
 
@@ -93,17 +94,25 @@ class DetailActivity : BaseActivity(), DetailContract.View {
     }
 
     override fun showError(error: DetailContract.Errors) {
-        when (error) {
-            DetailContract.Errors.EMPTY_BACKDROP -> Toast.makeText(
-                this,
-                R.string.detail_error_backdrop_unavailable,
-                Toast.LENGTH_SHORT
-            ).show()
-            DetailContract.Errors.EMPTY_POSTER -> Toast.makeText(
-                this,
-                R.string.detail_error_poster_unavailable,
-                Toast.LENGTH_SHORT
-            ).show()
+        val message = when (error) {
+            DetailContract.Errors.EMPTY_BACKDROP ->
+                R.string.detail_error_backdrop_unavailable
+            DetailContract.Errors.EMPTY_POSTER ->
+                R.string.detail_error_poster_unavailable
+            DetailContract.Errors.NETWORK ->
+                R.string.request_error_network
+            DetailContract.Errors.REQUEST_GENERIC_ERROR ->
+                R.string.request_error_unknown
         }
+
+        Toast.makeText(
+            this,
+            message,
+            Toast.LENGTH_SHORT
+        ).show()
+    }
+
+    override fun close() {
+        super.onBackPressed()
     }
 }

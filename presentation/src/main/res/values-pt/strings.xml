@@ -14,4 +14,7 @@
     <string name="promotion_ad_title">Confira todos os filmes da %1$s</string>
     <string name="detail_error_backdrop_unavailable">Pôster expandido não disponível</string>
     <string name="detail_error_poster_unavailable">Pôster não disponível</string>
+    <string name="request_error_network">Verifique sua conexão com a internet e tente novamente</string>
+    <string name="request_error_unknown">Houve um erro na conexão com o servidor. Tente novamente mais tarde</string>
+
 </resources>
