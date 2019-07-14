@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.view.View
 import com.guilhermelucas.moviedatabase.R
 import com.guilhermelucas.moviedatabase.base.BaseActivity
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.guilhermelucas.moviedatabase.util.loadFromUrl
 import kotlinx.android.synthetic.main.backdrop_viewer_activity.*
 
@@ -57,11 +55,11 @@ class ImageViewer : BaseActivity() {
         }
 
         imageMovieBackdrop.setOnClickListener {
-            setImmersiveMode()
+            toggleImmersiveMode()
         }
     }
 
-    private fun setImmersiveMode() {
+    private fun toggleImmersiveMode() {
         if (isImmersiveModeEnabled())
             leaveImmersiveMode()
         else

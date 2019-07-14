@@ -27,7 +27,6 @@
                 android:screenOrientation="portrait"/>
         <activity
                 android:name=".viewer.ImageViewer"
-                android:screenOrientation="portrait"
                 android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity
                 android:name=".detail.promotion.DetailPromotionAdActivity"
