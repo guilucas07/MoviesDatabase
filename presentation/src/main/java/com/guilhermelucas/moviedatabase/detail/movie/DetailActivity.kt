@@ -3,7 +3,6 @@ package com.guilhermelucas.moviedatabase.detail.movie
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import com.guilhermelucas.data.api.MovieDataSource
 import com.guilhermelucas.data.firebase.RemoteConfig
 import com.guilhermelucas.moviedatabase.R
@@ -93,23 +92,19 @@ class DetailActivity : BaseActivity(), DetailContract.View {
         startActivity(intent)
     }
 
-    override fun showError(error: DetailContract.Errors) {
+    override fun showError(error: DetailContract.Error) {
         val message = when (error) {
-            DetailContract.Errors.EMPTY_BACKDROP ->
+            DetailContract.Error.EMPTY_BACKDROP ->
                 R.string.detail_error_backdrop_unavailable
-            DetailContract.Errors.EMPTY_POSTER ->
+            DetailContract.Error.EMPTY_POSTER ->
                 R.string.detail_error_poster_unavailable
-            DetailContract.Errors.NETWORK ->
+            DetailContract.Error.NETWORK ->
                 R.string.request_error_network
-            DetailContract.Errors.REQUEST_GENERIC_ERROR ->
+            DetailContract.Error.REQUEST_GENERIC_ERROR ->
                 R.string.request_error_unknown
         }
 
-        Toast.makeText(
-            this,
-            message,
-            Toast.LENGTH_SHORT
-        ).show()
+        showToast(message)
     }
 
     override fun close() {

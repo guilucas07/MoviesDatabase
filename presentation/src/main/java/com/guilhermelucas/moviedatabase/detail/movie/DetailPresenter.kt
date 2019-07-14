@@ -41,10 +41,10 @@ class DetailPresenter(
             })
     }
 
-    private fun getErrorType(throwable: Throwable): DetailContract.Errors {
+    private fun getErrorType(throwable: Throwable): DetailContract.Error {
         return when (throwable) {
-            is UnknownHostException -> DetailContract.Errors.NETWORK
-            else -> DetailContract.Errors.REQUEST_GENERIC_ERROR
+            is UnknownHostException -> DetailContract.Error.NETWORK
+            else -> DetailContract.Error.REQUEST_GENERIC_ERROR
         }
     }
 
@@ -53,7 +53,7 @@ class DetailPresenter(
         if (movie.backdropUrl != null)
             view?.goToBackdropViewer(movie.backdropUrl)
         else
-            view?.showError(DetailContract.Errors.EMPTY_BACKDROP)
+            view?.showError(DetailContract.Error.EMPTY_BACKDROP)
     }
 
 }

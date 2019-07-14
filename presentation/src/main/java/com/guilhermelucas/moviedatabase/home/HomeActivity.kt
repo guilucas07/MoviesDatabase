@@ -5,17 +5,16 @@ import android.content.Context
 import android.content.Intent
 import android.nfc.tech.MifareUltralight.PAGE_SIZE
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.guilhermelucas.data.api.MovieDataSource
 import com.guilhermelucas.data.firebase.RemoteConfig
-import com.guilhermelucas.moviedatabase.model.PromotionAd
 import com.guilhermelucas.moviedatabase.R
 import com.guilhermelucas.moviedatabase.base.BaseActivity
 import com.guilhermelucas.moviedatabase.detail.movie.DetailActivity
@@ -23,6 +22,7 @@ import com.guilhermelucas.moviedatabase.detail.promotion.DetailPromotionAdActivi
 import com.guilhermelucas.moviedatabase.home.adapter.HomeAdapter
 import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterItem
 import com.guilhermelucas.moviedatabase.model.MovieVO
+import com.guilhermelucas.moviedatabase.model.PromotionAd
 import com.guilhermelucas.moviedatabase.util.MovieImageUrlBuilder
 import kotlinx.android.synthetic.main.home_activity.*
 import android.util.Pair as UtilPair
@@ -106,13 +106,13 @@ class HomeActivity : BaseActivity(), HomeContract.View {
 
     override fun showError(error: HomeContract.Failure) {
         val message = when (error) {
-            is HomeContract.Failure.NetworkConnection -> getString(R.string.request_error_network)
+            is HomeContract.Failure.NetworkConnection -> R.string.request_error_network
             else -> {
-                print(error.errorMessage)
-                getString(R.string.request_error_unknown)
+                Log.e("HomeActivity", "Request error : ${error.errorMessage}")
+                R.string.request_error_unknown
             }
         }
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+        showToast(message)
     }
 
     /***********************/

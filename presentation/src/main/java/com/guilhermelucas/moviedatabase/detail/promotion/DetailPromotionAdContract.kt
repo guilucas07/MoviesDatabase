@@ -10,7 +10,13 @@ interface DetailPromotionAdContract {
     interface View : BaseView {
         fun onLoadMovies(movies: List<AdapterItem>)
         fun goToDetail(movie: MovieVO)
-        fun setTitleText(title : String)
+        fun setTitleText(title: String)
+        fun showError(error: Error)
+        fun close()
+    }
+
+    enum class Error {
+        NETWORK, REQUEST_GENERIC_ERROR
     }
 
     interface Presenter : BasePresenter<View>, HomeAdapter.Presenter {

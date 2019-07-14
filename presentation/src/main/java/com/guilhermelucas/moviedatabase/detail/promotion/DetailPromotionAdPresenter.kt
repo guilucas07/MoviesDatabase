@@ -1,12 +1,14 @@
 package com.guilhermelucas.moviedatabase.detail.promotion
 
 import com.guilhermelucas.data.BaseSchedulerProvider
+import com.guilhermelucas.moviedatabase.detail.movie.DetailContract
 import com.guilhermelucas.moviedatabase.model.PromotionAd
 import com.guilhermelucas.moviedatabase.home.adapter.HomeAdapter
 import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterItem
 import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterViewHolder
 import com.guilhermelucas.moviedatabase.util.SchedulerProvider
 import io.reactivex.disposables.CompositeDisposable
+import java.net.UnknownHostException
 
 class DetailPromotionAdPresenter(
     private val promotionAd: PromotionAd,
@@ -79,12 +81,22 @@ class DetailPromotionAdPresenter(
             val observer = repository.getMovies(promotionAd.searchKey)
                 .subscribeOn(schedulers.io())
                 .observeOn(schedulers.ui())
-                .subscribe { items ->
+                .subscribe({ items ->
                     view?.onLoadMovies(items)
                     isLoading = false
-                }
+                }, {
+                    view?.showError(getErrorType(it))
+                    view?.close()
+                })
             compositeDisposable.add(observer)
 
+        }
+    }
+
+    private fun getErrorType(throwable: Throwable): DetailPromotionAdContract.Error {
+        return when (throwable) {
+            is UnknownHostException -> DetailPromotionAdContract.Error.NETWORK
+            else -> DetailPromotionAdContract.Error.REQUEST_GENERIC_ERROR
         }
     }
 

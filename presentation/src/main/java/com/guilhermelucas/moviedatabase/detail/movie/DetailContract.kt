@@ -8,7 +8,7 @@ interface DetailContract {
     interface View : BaseView {
         fun loadMovieDetail(movie: MovieVO)
         fun goToBackdropViewer(url: String)
-        fun showError(error: Errors)
+        fun showError(error: Error)
         fun close()
     }
 
@@ -17,7 +17,7 @@ interface DetailContract {
         fun seeMovieBackdrop(movie: MovieVO)
     }
 
-    enum class Errors {
+    enum class Error {
         EMPTY_BACKDROP, EMPTY_POSTER, NETWORK, REQUEST_GENERIC_ERROR
     }
 }

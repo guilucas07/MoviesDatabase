@@ -8,13 +8,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.guilhermelucas.data.api.MovieDataSource
 import com.guilhermelucas.data.firebase.RemoteConfig
-import com.guilhermelucas.moviedatabase.model.PromotionAd
 import com.guilhermelucas.moviedatabase.R
 import com.guilhermelucas.moviedatabase.base.BaseActivity
 import com.guilhermelucas.moviedatabase.detail.movie.DetailActivity
 import com.guilhermelucas.moviedatabase.home.adapter.HomeAdapter
 import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterItem
 import com.guilhermelucas.moviedatabase.model.MovieVO
+import com.guilhermelucas.moviedatabase.model.PromotionAd
 import com.guilhermelucas.moviedatabase.util.MovieImageUrlBuilder
 import kotlinx.android.synthetic.main.detail_promotion_activity.*
 
@@ -42,6 +42,21 @@ class DetailPromotionAdActivity : BaseActivity(), DetailPromotionAdContract.View
 
     override fun setTitleText(title: String) {
         textPromotionAdTitle.text = title
+    }
+
+    override fun showError(error: DetailPromotionAdContract.Error) {
+        val message = when (error) {
+            DetailPromotionAdContract.Error.NETWORK ->
+                R.string.request_error_network
+            DetailPromotionAdContract.Error.REQUEST_GENERIC_ERROR ->
+                R.string.request_error_unknown
+        }
+
+        showToast(message)
+    }
+
+    override fun close() {
+        super.onBackPressed()
     }
 
     /******************************************/
