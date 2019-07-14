@@ -1,6 +1,6 @@
 package com.guilhermelucas.moviedatabase.util
 
-import com.guilhermelucas.moviedatabase.firebase.RemoteConfig
+import com.guilhermelucas.data.firebase.RemoteConfig
 
 class MovieImageUrlBuilder(private val remoteConfig: RemoteConfig) {
 

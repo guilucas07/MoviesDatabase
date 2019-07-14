@@ -1,6 +1,5 @@
 package com.guilhermelucas.moviedatabase.home
 
-import android.util.Log
 import com.guilhermelucas.moviedatabase.home.adapter.HomeAdapter
 import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterItem
 import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterViewHolder

@@ -6,15 +6,15 @@ import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import com.guilhermelucas.data.api.MovieDataSource
+import com.guilhermelucas.data.firebase.RemoteConfig
+import com.guilhermelucas.domain.PromotionAd
 import com.guilhermelucas.moviedatabase.R
-import com.guilhermelucas.moviedatabase.api.MovieDataSource
 import com.guilhermelucas.moviedatabase.base.BaseActivity
 import com.guilhermelucas.moviedatabase.detail.movie.DetailActivity
-import com.guilhermelucas.moviedatabase.firebase.RemoteConfig
 import com.guilhermelucas.moviedatabase.home.adapter.HomeAdapter
 import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterItem
-import com.guilhermelucas.moviedatabase.domain.model.MovieVO
-import com.guilhermelucas.moviedatabase.domain.model.PromotionAd
+import com.guilhermelucas.moviedatabase.model.MovieVO
 import com.guilhermelucas.moviedatabase.util.MovieImageUrlBuilder
 import kotlinx.android.synthetic.main.detail_promotion_activity.*
 

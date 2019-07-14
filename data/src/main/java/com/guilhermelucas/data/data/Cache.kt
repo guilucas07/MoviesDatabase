@@ -1,7 +1,4 @@
-package com.guilhermelucas.moviedatabase.data
-
-import com.guilhermelucas.moviedatabase.domain.model.Genre
-import com.guilhermelucas.moviedatabase.domain.model.Movie
+package com.guilhermelucas.data.data
 
 object Cache {
 

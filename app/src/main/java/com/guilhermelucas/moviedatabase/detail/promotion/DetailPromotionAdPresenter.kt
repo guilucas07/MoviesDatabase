@@ -1,12 +1,9 @@
 package com.guilhermelucas.moviedatabase.detail.promotion
 
-import android.support.v7.widget.RecyclerView
-import com.guilhermelucas.moviedatabase.domain.model.PromotionAd
+import com.guilhermelucas.domain.PromotionAd
 import com.guilhermelucas.moviedatabase.home.adapter.HomeAdapter
-import com.guilhermelucas.moviedatabase.home.adapter.item.AdViewHolder
 import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterItem
 import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterViewHolder
-import com.guilhermelucas.moviedatabase.home.adapter.item.MovieViewHolder
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers

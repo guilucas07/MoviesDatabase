@@ -1,20 +1,7 @@
-package com.guilhermelucas.moviedatabase.domain.model
+package com.guilhermelucas.moviedatabase.model
 
+import com.guilhermelucas.domain.Movie
 import com.guilhermelucas.moviedatabase.util.MovieImageUrlBuilder
-import com.squareup.moshi.Json
-import java.util.*
-
-data class Movie(
-    val id: Int,
-    val title: String,
-    val overview: String?,
-    val genres: List<Genre>?,
-    @Json(name = "vote_average") val voteAverage: Double?,
-    @Json(name = "genre_ids") val genreIds: List<Int>?,
-    @Json(name = "poster_path") val posterPath: String?,
-    @Json(name = "backdrop_path") val backdropPath: String?,
-    @Json(name = "release_date") val releaseDate: Date?
-)
 
 fun Movie.toMovieVO(imageUrlBuilder: MovieImageUrlBuilder): MovieVO {
 

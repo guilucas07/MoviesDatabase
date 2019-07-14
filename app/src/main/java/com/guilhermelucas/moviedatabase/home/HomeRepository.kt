@@ -1,18 +1,15 @@
 package com.guilhermelucas.moviedatabase.home
 
 import android.content.Context
+import com.guilhermelucas.data.api.MovieDataSource
+import com.guilhermelucas.data.firebase.RemoteConfig
+import com.guilhermelucas.domain.Movie
+import com.guilhermelucas.domain.PromotionAd
 import com.guilhermelucas.moviedatabase.R
-import com.guilhermelucas.moviedatabase.api.MovieDataSource
-import com.guilhermelucas.moviedatabase.data.Cache
-import com.guilhermelucas.moviedatabase.domain.model.Genre
-import com.guilhermelucas.moviedatabase.domain.model.Movie
-import com.guilhermelucas.moviedatabase.domain.model.PromotionAd
-import com.guilhermelucas.moviedatabase.domain.model.toMovieVO
-import com.guilhermelucas.moviedatabase.firebase.RemoteConfig
 import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterItem
+import com.guilhermelucas.moviedatabase.model.toMovieVO
 import com.guilhermelucas.moviedatabase.util.MovieImageUrlBuilder
 import io.reactivex.Observable
-import io.reactivex.functions.BiFunction
 import java.util.*
 
 class HomeRepository(
@@ -34,22 +31,6 @@ class HomeRepository(
             .map { it.map { movie -> AdapterItem.MovieItem(movie.toMovieVO(imageUrlBuilder)) } }
     }
 
-    private fun getDiscoveryMovies(request: Int): Observable<List<Movie>> {
-        val genresObservable = movieDataSource.getGenres()
-        val upcomingMoviesObservable = movieDataSource.getDiscoveryMovies(request)
-
-        return Observable.zip<List<Genre>, List<Movie>, List<Movie>>(
-            genresObservable,
-            upcomingMoviesObservable,
-            BiFunction<List<Genre>, List<Movie>, List<Movie>> { genres, movies ->
-                actualPage++
-                val moviesWithGenres = movies.map { movie ->
-                    movie.copy(genres = genres.filter { movie.genreIds?.contains(it.id) == true })
-                }
-                moviesWithGenres
-            })
-    }
-
     fun loadMoreData(requestStrategy: RequestStrategy = RequestStrategy.NEXT_PAGE): Observable<List<AdapterItem>> {
         val request = when (requestStrategy) {
             RequestStrategy.NEXT_PAGE -> actualPage + 1
@@ -59,7 +40,8 @@ class HomeRepository(
         if (request == 1)
             loadedItems.clear()
 
-        return getDiscoveryMovies(request).map { ret ->
+        return movieDataSource.getDiscoveryMovies(request, true).map { ret ->
+            actualPage++
             ret.forEach {
                 inflateAdapterItem(it)
             }

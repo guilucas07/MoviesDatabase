@@ -1,9 +1,9 @@
-package com.guilhermelucas.moviedatabase.firebase
+package com.guilhermelucas.data.firebase
 
-import com.guilhermelucas.moviedatabase.BuildConfig
-import com.guilhermelucas.moviedatabase.R
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
+import com.guilhermelucas.data.BuildConfig
+import com.guilhermelucas.data.R
 
 class RemoteConfig private constructor() {
 

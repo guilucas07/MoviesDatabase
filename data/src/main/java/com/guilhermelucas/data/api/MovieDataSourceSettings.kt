@@ -1,6 +1,6 @@
-package com.guilhermelucas.moviedatabase.api
+package com.guilhermelucas.data.api
 
-import com.guilhermelucas.moviedatabase.firebase.RemoteConfig
+import com.guilhermelucas.data.firebase.RemoteConfig
 import java.util.*
 
 class MovieDataSourceSettings {
