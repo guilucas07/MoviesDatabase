@@ -1,14 +1,15 @@
 package com.guilhermelucas.moviedatabase.detail.movie
 
+import com.guilhermelucas.data.BaseSchedulerProvider
 import com.guilhermelucas.moviedatabase.model.MovieVO
-import io.reactivex.android.schedulers.AndroidSchedulers
+import com.guilhermelucas.moviedatabase.util.SchedulerProvider
 import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
 
 class DetailPresenter(
     private val itemId: Int,
     private val repository: DetailRepository,
-    private val tracker: DetailTracker
+    private val tracker: DetailTracker,
+    private val schedulers: BaseSchedulerProvider = SchedulerProvider()
 ) : DetailContract.Presenter {
 
     private var view: DetailContract.View? = null
@@ -28,8 +29,8 @@ class DetailPresenter(
 
     override fun onResume() {
         disposable = repository.loadMovie(itemId.toLong())
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(schedulers.io())
+            .observeOn(schedulers.ui())
             .subscribe { movieVO ->
                 view?.loadMovieDetail(movieVO)
                 disposable?.dispose()

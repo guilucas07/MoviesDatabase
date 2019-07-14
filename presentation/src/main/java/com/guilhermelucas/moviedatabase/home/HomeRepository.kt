@@ -35,7 +35,6 @@ class HomeRepository(
                 }
                 loadedItems
             }
-        //AdapterItem.MovieItem(movie.toMovieVO(imageUrlBuilder))
     }
 
     fun loadMoreData(requestStrategy: RequestStrategy = RequestStrategy.NEXT_PAGE): Observable<List<AdapterItem>> {

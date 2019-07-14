@@ -1,17 +1,18 @@
 package com.guilhermelucas.moviedatabase.detail.promotion
 
+import com.guilhermelucas.data.BaseSchedulerProvider
 import com.guilhermelucas.domain.PromotionAd
 import com.guilhermelucas.moviedatabase.home.adapter.HomeAdapter
 import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterItem
 import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterViewHolder
-import io.reactivex.android.schedulers.AndroidSchedulers
+import com.guilhermelucas.moviedatabase.util.SchedulerProvider
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 
 class DetailPromotionAdPresenter(
     private val promotionAd: PromotionAd,
     private val repository: DetailPromotionAdRepository,
-    private val tracker: DetailPromotionAdTracker
+    private val tracker: DetailPromotionAdTracker,
+    private val schedulers: BaseSchedulerProvider = SchedulerProvider()
 ) : DetailPromotionAdContract.Presenter {
 
     private var view: DetailPromotionAdContract.View? = null
@@ -76,8 +77,8 @@ class DetailPromotionAdPresenter(
             isLoading = true
 
             val observer = repository.getMovies(promotionAd.searchKey)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(schedulers.io())
+                .observeOn(schedulers.ui())
                 .subscribe { items ->
                     view?.onLoadMovies(items)
                     isLoading = false

@@ -1,14 +1,17 @@
 package com.guilhermelucas.moviedatabase.home
 
+import com.guilhermelucas.data.BaseSchedulerProvider
 import com.guilhermelucas.moviedatabase.home.adapter.HomeAdapter
 import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterItem
 import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterViewHolder
+import com.guilhermelucas.moviedatabase.util.SchedulerProvider
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
 class HomePresenter(
-    private val repository: HomeRepository
+    private val repository: HomeRepository,
+    private val schedulers: BaseSchedulerProvider = SchedulerProvider()
 ) : HomeContract.Presenter {
 
     private var view: HomeContract.View? = null
@@ -84,8 +87,8 @@ class HomePresenter(
         if (partialName.length >= Constants.SEARCH_MIN_LETTERS) {
             shouldLoadPromotionAds = false
             val disposable = repository.getMovie(partialName)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
+                .observeOn(schedulers.ui())
+                .subscribeOn(schedulers.io())
                 .subscribe { listMovies ->
                     view?.onLoadMovies(listMovies)
                     activityMode = ActivityMode.SEARCH
