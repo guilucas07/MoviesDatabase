@@ -1,12 +1,12 @@
 package com.guilhermelucas.moviedatabase.home
 
 import android.content.Context
-import com.guilhermelucas.data.api.MovieDataSource
+import com.guilhermelucas.data.api.MovieRemoteRepository
 import com.guilhermelucas.data.firebase.RemoteConfig
 import com.guilhermelucas.domain.Movie
-import com.guilhermelucas.moviedatabase.model.PromotionAd
 import com.guilhermelucas.moviedatabase.R
 import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterItem
+import com.guilhermelucas.moviedatabase.model.PromotionAd
 import com.guilhermelucas.moviedatabase.model.toMovieVO
 import com.guilhermelucas.moviedatabase.util.MovieImageUrlBuilder
 import io.reactivex.Observable
@@ -15,7 +15,7 @@ import java.util.*
 class HomeRepository(
     private val context: Context,
     private val imageUrlBuilder: MovieImageUrlBuilder,
-    private val movieDataSource: MovieDataSource,
+    private val movieRepository: MovieRemoteRepository,
     remoteConfig: RemoteConfig
 ) {
 
@@ -28,7 +28,7 @@ class HomeRepository(
 
     fun getMovie(partialName: String): Observable<List<AdapterItem>> {
         loadedItems.clear()
-        return movieDataSource.getMovie(partialName)
+        return movieRepository.getMovie(partialName)
             .map {
                 it.forEach { movie ->
                     inflateAdapterItem(movie, false)
@@ -46,7 +46,7 @@ class HomeRepository(
         if (request == 1)
             loadedItems.clear()
 
-        return movieDataSource.getDiscoveryMovies(request, true).map { ret ->
+        return movieRepository.getDiscoveryMovies(request, true).map { ret ->
             actualPage++
             ret.forEach {
                 inflateAdapterItem(it)

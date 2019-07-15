@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.nfc.tech.MifareUltralight.PAGE_SIZE
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -14,6 +13,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.guilhermelucas.data.api.MovieDataSource
+import com.guilhermelucas.data.api.MovieDataSourceSettings
+import com.guilhermelucas.data.api.MovieRemoteRepository
 import com.guilhermelucas.data.firebase.RemoteConfig
 import com.guilhermelucas.moviedatabase.R
 import com.guilhermelucas.moviedatabase.base.BaseActivity
@@ -51,7 +52,9 @@ class HomeActivity : BaseActivity(), HomeContract.View {
             HomeRepository(
                 baseContext,
                 MovieImageUrlBuilder(RemoteConfig.instance),
-                MovieDataSource.instance,
+                MovieRemoteRepository(
+                    MovieDataSource.getInstance(MovieDataSourceSettings())
+                ),
                 RemoteConfig.instance
             )
         presenter = HomePresenter(repository)

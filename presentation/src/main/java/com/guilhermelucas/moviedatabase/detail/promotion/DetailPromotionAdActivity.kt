@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.guilhermelucas.data.api.MovieDataSource
+import com.guilhermelucas.data.api.MovieDataSourceSettings
+import com.guilhermelucas.data.api.MovieRemoteRepository
 import com.guilhermelucas.data.firebase.RemoteConfig
 import com.guilhermelucas.moviedatabase.R
 import com.guilhermelucas.moviedatabase.base.BaseActivity
@@ -81,7 +83,7 @@ class DetailPromotionAdActivity : BaseActivity(), DetailPromotionAdContract.View
                 )
         val repository =
             DetailPromotionAdRepository(
-                MovieDataSource.instance,
+                MovieRemoteRepository(MovieDataSource.getInstance(MovieDataSourceSettings())),
                 MovieImageUrlBuilder(RemoteConfig.instance)
             )
 

@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.guilhermelucas.data.api.MovieDataSource
+import com.guilhermelucas.data.api.MovieDataSourceSettings
+import com.guilhermelucas.data.api.MovieRemoteRepository
 import com.guilhermelucas.data.firebase.RemoteConfig
 import com.guilhermelucas.moviedatabase.R
 import com.guilhermelucas.moviedatabase.base.BaseActivity
@@ -44,7 +46,7 @@ class DetailActivity : BaseActivity(), DetailContract.View {
         presenter = DetailPresenter(
             itemId,
             DetailRepository(
-                MovieDataSource.instance,
+                MovieRemoteRepository(MovieDataSource.getInstance(MovieDataSourceSettings())),
                 MovieImageUrlBuilder(RemoteConfig.instance)
             ),
             DetailTracker(baseContext)
