@@ -16,6 +16,4 @@ data class MovieDetailModel(
     @field:Json(name = "release_date") val releaseDate: Date?
 )
 
-fun MovieDetailModel.toDomainMovie(): Movie {
-    return Movie(id, title, overview, genres, voteAverage, posterPath, backdropPath, releaseDate)
-}
+

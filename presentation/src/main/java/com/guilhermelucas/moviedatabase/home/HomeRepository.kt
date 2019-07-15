@@ -46,7 +46,7 @@ class HomeRepository(
         if (request == 1)
             loadedItems.clear()
 
-        return movieRepository.getDiscoveryMovies(request, true).map { ret ->
+        return movieRepository.getUpcomingMovies(request, true).map { ret ->
             actualPage++
             ret.forEach {
                 inflateAdapterItem(it)

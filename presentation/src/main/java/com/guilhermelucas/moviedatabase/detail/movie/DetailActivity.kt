@@ -69,8 +69,7 @@ class DetailActivity : BaseActivity(), DetailContract.View {
         textMovieOverview.text = movie.overview
         textMovieGenres.text = movie.genres?.joinToString(separator = ", ") { it.name }
 
-        val dateFormat = DateFormat.getDateInstance(DateFormat.SHORT, Locale.getDefault())
-        textMovieReleaseDate.text = dateFormat.format(movie.releaseDate)
+        textMovieReleaseDate.text = movie.releaseDate
 
         imageMoviePoster.loadFromUrl(movie.posterUrl)
         imageMovieBackdrop.loadFromUrl(movie.backdropUrl)

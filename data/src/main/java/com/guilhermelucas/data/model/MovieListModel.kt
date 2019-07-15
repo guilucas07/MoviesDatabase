@@ -14,12 +14,3 @@ data class MovieListModel(
     @field:Json(name = "backdrop_path") val backdropPath: String?,
     @field:Json(name = "release_date") val releaseDate: Date?
 )
-
-fun Movie.toDataMovie(): MovieListModel {
-    val genres = genres?.map { it.id }
-    return MovieListModel(id, title, overview, voteAverage, genres, posterPath, backdropPath, releaseDate)
-}
-
-fun MovieListModel.toDomainMovie(): Movie {
-    return Movie(id, title, overview, arrayListOf(), voteAverage, posterPath, backdropPath, releaseDate)
-}

@@ -14,25 +14,12 @@ class MovieViewHolder(val clickListener: (position: Int) -> Unit, itemView: View
         val movie = adapterItem.movie
         itemView.textMovieTitle.text = movie.title
 
-        val dateFormat =
-            DateFormat.getDateInstance(
-                DateFormat.YEAR_FIELD,
-                Locale.getDefault()
-            )
-
         movie.releaseDate?.run {
-            itemView.textMovieReleaseYear.text = dateFormat.format(this)
+            itemView.textMovieReleaseDate.text = this
         }
 
         itemView.setOnClickListener {
             clickListener(adapterPosition)
-        }
-
-        if (movie.voteAverage != null) {
-            itemView.textVoteAverage.visibility = View.VISIBLE
-            itemView.textVoteAverage.text = String.format("%.1f", movie.voteAverage)
-        } else {
-            itemView.textVoteAverage.visibility = View.GONE
         }
 
         itemView.imageMoviePoster.loadFromUrl(movie.posterUrl)
