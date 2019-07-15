@@ -17,6 +17,11 @@ interface HomeContract {
         fun moviesLoaded()
         fun showError(error: Error)
         fun getDeviceOrientation(): DeviceOrientation
+        fun changeAdapterVisibility(visibility: AdapterVisibility)
+    }
+
+    enum class AdapterVisibility {
+        EMPTY_VIEW, SEARCH_EMPTY_VIEW, DATA_VIEW
     }
 
     interface Presenter : BasePresenter<View>, HomeAdapter.Presenter {

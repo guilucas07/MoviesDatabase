@@ -10,6 +10,8 @@
     <string name="home_empty_view_description">Use the search icon and find more information about movies already
         released
     </string>
+
+    <string name="home_empty_view_search_title">No movies found for this search</string>
     <string name="detail_error_backdrop_unavailable">Backdrop unavailable</string>
     <string name="detail_error_poster_unavailable">Poster unavailable</string>
     <string name="promotion_ad_check_out">Check out</string>

@@ -94,6 +94,11 @@ class HomePresenter(
                 .subscribeOn(schedulers.io())
                 .subscribe({ listMovies ->
                     view?.onLoadMovies(listMovies)
+                    if (listMovies.isNotEmpty()) {
+                        view?.changeAdapterVisibility(HomeContract.AdapterVisibility.DATA_VIEW)
+                    } else
+                        view?.changeAdapterVisibility(HomeContract.AdapterVisibility.SEARCH_EMPTY_VIEW)
+
                     activityMode = ActivityMode.SEARCH
                 }, {
                     activityMode = ActivityMode.DEFAULT
@@ -121,8 +126,13 @@ class HomePresenter(
                 repository.loadMoreData(repositoryRequestStrategy)
                     .observeOn(schedulers.ui())
                     .subscribeOn(schedulers.io())
-                    .subscribe({
-                        view?.onLoadMovies(it)
+                    .subscribe({ listMovies ->
+                        view?.onLoadMovies(listMovies)
+
+                        if (listMovies.isNotEmpty()) {
+                            view?.changeAdapterVisibility(HomeContract.AdapterVisibility.DATA_VIEW)
+                        } else
+                            view?.changeAdapterVisibility(HomeContract.AdapterVisibility.EMPTY_VIEW)
 
                         activityMode = ActivityMode.DEFAULT
                         isLoading = false

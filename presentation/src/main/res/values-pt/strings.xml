@@ -10,6 +10,7 @@
     <string name="home_empty_view_title">Nenhum filme com lançamento previsto na sua região</string>
     <string name="home_empty_view_description">Utilize a busca e encontre mais informações sobre filmes já lançados
     </string>
+    <string name="home_empty_view_search_title">Nenhum filme encontrado para os dados informados</string>
     <string name="promotion_ad_check_out">Confira</string>
     <string name="promotion_ad_title">Confira todos os filmes da %1$s</string>
     <string name="detail_error_backdrop_unavailable">Pôster expandido não disponível</string>

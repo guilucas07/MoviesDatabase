@@ -37,6 +37,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
+                        android:textColor="@color/md_white_1000"
                         android:text="@string/home_empty_view_title"/>
 
                 <TextView
@@ -47,7 +48,26 @@
                         android:layout_below="@+id/textEmptyViewTitle"
                         android:layout_marginTop="@dimen/activity_internal_elements_extra_margin"
                         android:gravity="center"
+                        android:textColor="@color/md_white_1000"
                         android:text="@string/home_empty_view_description"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                    android:id="@+id/layoutEmptyMoviesSearch"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:padding="@dimen/activity_internal_elements_margin"
+                    android:visibility="gone">
+
+                <TextView
+                        style="@style/Text.Heading.Large"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textColor="@color/md_white_1000"
+                        android:text="@string/home_empty_view_search_title"/>
+
             </RelativeLayout>
 
             <androidx.recyclerview.widget.RecyclerView

@@ -82,7 +82,6 @@ class HomeActivity : BaseActivity(), HomeContract.View {
     /******************************************/
     override fun onLoadMovies(movies: List<AdapterItem>) {
         adapter.notifyDataSetChanged()
-        verifyRecyclerViewVisibility()
     }
 
     override fun goToDetail(movie: MovieVO) {
@@ -123,6 +122,26 @@ class HomeActivity : BaseActivity(), HomeContract.View {
         return when (resources.configuration.orientation) {
             Configuration.ORIENTATION_PORTRAIT -> DeviceOrientation.PORTRAIT
             else -> DeviceOrientation.LANDSCAPE
+        }
+    }
+
+    override fun changeAdapterVisibility(visibility: HomeContract.AdapterVisibility){
+        when (visibility) {
+            HomeContract.AdapterVisibility.DATA_VIEW -> {
+                layoutEmptyMovies.visibility = View.GONE
+                layoutEmptyMoviesSearch.visibility = View.GONE
+                recyclerViewMovies.visibility = View.VISIBLE
+            }
+            HomeContract.AdapterVisibility.SEARCH_EMPTY_VIEW -> {
+                layoutEmptyMovies.visibility = View.GONE
+                layoutEmptyMoviesSearch.visibility = View.VISIBLE
+                recyclerViewMovies.visibility = View.GONE
+            }
+            else -> {
+                layoutEmptyMovies.visibility = View.VISIBLE
+                layoutEmptyMoviesSearch.visibility = View.GONE
+                recyclerViewMovies.visibility = View.GONE
+            }
         }
     }
 
@@ -201,17 +220,6 @@ class HomeActivity : BaseActivity(), HomeContract.View {
         }
         recyclerViewMovies.layoutManager = gridLayoutManager
     }
-
-    private fun verifyRecyclerViewVisibility() {
-        if (adapter.itemCount > 0) {
-            layoutEmptyMovies.visibility = View.GONE
-            recyclerViewMovies.visibility = View.VISIBLE
-        } else {
-            layoutEmptyMovies.visibility = View.VISIBLE
-            recyclerViewMovies.visibility = View.GONE
-        }
-    }
-
 }
 
 
