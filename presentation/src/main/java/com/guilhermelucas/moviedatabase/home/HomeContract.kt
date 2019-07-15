@@ -14,7 +14,7 @@ interface HomeContract {
         fun goToPromotionDetail(promotionAd: PromotionAd)
         fun loading(visible: Boolean)
         fun moviesLoaded()
-        fun showError(error: Failure)
+        fun showError(error: Error)
     }
 
     interface Presenter : BasePresenter<View>, HomeAdapter.Presenter {
@@ -26,9 +26,7 @@ interface HomeContract {
         fun onCloseSearchBar(): Boolean
     }
 
-    sealed class Failure(val errorMessage: String) {
-        class NetworkConnection : Failure("Verify your internet connection and try again!")
-        class GenericFailure(errorMessage: String) : Failure(errorMessage)
-
+    enum class Error {
+        NETWORK, REQUEST_GENERIC_ERROR
     }
 }

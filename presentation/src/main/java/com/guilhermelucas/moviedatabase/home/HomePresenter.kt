@@ -117,8 +117,8 @@ class HomePresenter(
 
             val observer =
                 repository.loadMoreData(repositoryRequestStrategy)
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribeOn(Schedulers.io())
+                    .observeOn(schedulers.ui())
+                    .subscribeOn(schedulers.io())
                     .subscribe({
                         view?.onLoadMovies(it)
 
@@ -136,10 +136,10 @@ class HomePresenter(
         }
     }
 
-    private fun getErrorType(throwable: Throwable): HomeContract.Failure {
+    private fun getErrorType(throwable: Throwable): HomeContract.Error {
         return when (throwable) {
-            is UnknownHostException -> HomeContract.Failure.NetworkConnection()
-            else -> HomeContract.Failure.GenericFailure(throwable.message ?: throwable.localizedMessage)
+            is UnknownHostException -> HomeContract.Error.NETWORK
+            else -> HomeContract.Error.REQUEST_GENERIC_ERROR
         }
     }
 

@@ -104,11 +104,10 @@ class HomeActivity : BaseActivity(), HomeContract.View {
         adapter.notifyDataSetChanged()
     }
 
-    override fun showError(error: HomeContract.Failure) {
+    override fun showError(error: HomeContract.Error) {
         val message = when (error) {
-            is HomeContract.Failure.NetworkConnection -> R.string.request_error_network
+            HomeContract.Error.NETWORK -> R.string.request_error_network
             else -> {
-                Log.e("HomeActivity", "Request error : ${error.errorMessage}")
                 R.string.request_error_unknown
             }
         }
