@@ -10,8 +10,7 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity
-                android:name=".home.HomeActivity"
-                android:screenOrientation="portrait">
+                android:name=".home.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -23,14 +22,12 @@
                     android:resource="@xml/home_searchable"/>
         </activity>
         <activity
-                android:name=".detail.movie.DetailActivity"
-                android:screenOrientation="portrait"/>
+                android:name=".detail.movie.DetailActivity"/>
         <activity
                 android:name=".viewer.ImageViewer"
                 android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity
-                android:name=".detail.promotion.DetailPromotionAdActivity"
-                android:screenOrientation="portrait"/>
+                android:name=".detail.promotion.DetailPromotionAdActivity"/>
     </application>
 
 </manifest>

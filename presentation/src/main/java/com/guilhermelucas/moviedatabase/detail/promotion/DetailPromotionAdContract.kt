@@ -5,6 +5,7 @@ import com.guilhermelucas.moviedatabase.base.BaseView
 import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterItem
 import com.guilhermelucas.moviedatabase.model.MovieVO
 import com.guilhermelucas.moviedatabase.home.adapter.HomeAdapter
+import com.guilhermelucas.moviedatabase.util.DeviceOrientation
 
 interface DetailPromotionAdContract {
     interface View : BaseView {
@@ -13,6 +14,7 @@ interface DetailPromotionAdContract {
         fun setTitleText(title: String)
         fun showError(error: Error)
         fun close()
+        fun getDeviceOrientation(): DeviceOrientation
     }
 
     enum class Error {

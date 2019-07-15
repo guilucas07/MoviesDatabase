@@ -3,6 +3,7 @@ package com.guilhermelucas.moviedatabase.home
 import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.nfc.tech.MifareUltralight.PAGE_SIZE
 import android.os.Bundle
 import android.view.Menu
@@ -24,6 +25,7 @@ import com.guilhermelucas.moviedatabase.home.adapter.HomeAdapter
 import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterItem
 import com.guilhermelucas.moviedatabase.model.MovieVO
 import com.guilhermelucas.moviedatabase.model.PromotionAd
+import com.guilhermelucas.moviedatabase.util.DeviceOrientation
 import com.guilhermelucas.moviedatabase.util.MovieImageUrlBuilder
 import kotlinx.android.synthetic.main.home_activity.*
 import android.util.Pair as UtilPair
@@ -117,6 +119,13 @@ class HomeActivity : BaseActivity(), HomeContract.View {
         showToast(message)
     }
 
+    override fun getDeviceOrientation(): DeviceOrientation {
+        return when (resources.configuration.orientation) {
+            Configuration.ORIENTATION_PORTRAIT -> DeviceOrientation.PORTRAIT
+            else -> DeviceOrientation.LANDSCAPE
+        }
+    }
+
     /***********************/
     /**  private methods  **/
     /***********************/
@@ -183,7 +192,8 @@ class HomeActivity : BaseActivity(), HomeContract.View {
             }
         })
 
-        val gridLayoutManager = GridLayoutManager(baseContext, 2, RecyclerView.VERTICAL, false)
+        val gridLayoutManager =
+            GridLayoutManager(baseContext, presenter.getTotalItemsOnEachLine(), RecyclerView.VERTICAL, false)
         gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
                 return presenter.getSpanSize(position)

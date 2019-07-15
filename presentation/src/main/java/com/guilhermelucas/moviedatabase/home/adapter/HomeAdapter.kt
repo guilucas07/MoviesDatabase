@@ -43,6 +43,7 @@ class HomeAdapter(
         fun getItemsCount(): Int
         fun getSpanSize(adapterPosition: Int): Int
         fun getItemViewHolder(adapterPosition: Int): ViewHolderType
+        fun getTotalItemsOnEachLine() : Int
     }
 
 }

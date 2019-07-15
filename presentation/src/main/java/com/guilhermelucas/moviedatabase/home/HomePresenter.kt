@@ -4,6 +4,7 @@ import com.guilhermelucas.data.BaseSchedulerProvider
 import com.guilhermelucas.moviedatabase.home.adapter.HomeAdapter
 import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterItem
 import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterViewHolder
+import com.guilhermelucas.moviedatabase.util.DeviceOrientation
 import com.guilhermelucas.moviedatabase.util.SchedulerProvider
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -22,12 +23,13 @@ class HomePresenter(
     private var repositoryRequestStrategy = HomeRepository.RequestStrategy.FIRST_PAGE
     private var shouldLoadPromotionAds = false
 
-
     /*****************************/
     /**     Private objects     **/
     /*****************************/
     private object Constants {
         const val SEARCH_MIN_LETTERS = 3
+        const val MAX_ITEMS_EACH_ROW_PORTRAIT = 2
+        const val MAX_ITEMS_EACH_ROW_LANDSCAPE = 3
     }
 
     private enum class ActivityMode {
@@ -70,7 +72,7 @@ class HomePresenter(
     override fun getSpanSize(adapterPosition: Int): Int {
         if (shouldLoadPromotionAds) {
             val adapterItem = repository.getAdapterItem(adapterPosition)
-            return if (adapterItem is AdapterItem.AdItem) 2 else 1
+            return if (adapterItem is AdapterItem.AdItem) getTotalItemsOnEachLine() else 1
         }
         return 1
     }
@@ -160,5 +162,12 @@ class HomePresenter(
             is AdapterItem.AdItem -> HomeAdapter.ViewHolderType.AD
             else -> HomeAdapter.ViewHolderType.MOVIE
         }
+    }
+
+    override fun getTotalItemsOnEachLine(): Int {
+        return if (view?.getDeviceOrientation() == DeviceOrientation.PORTRAIT)
+            Constants.MAX_ITEMS_EACH_ROW_PORTRAIT
+        else
+            Constants.MAX_ITEMS_EACH_ROW_LANDSCAPE
     }
 }

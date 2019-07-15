@@ -2,10 +2,13 @@ package com.guilhermelucas.moviedatabase.detail.promotion
 
 import com.guilhermelucas.data.BaseSchedulerProvider
 import com.guilhermelucas.moviedatabase.detail.movie.DetailContract
+import com.guilhermelucas.moviedatabase.home.HomeContract
+import com.guilhermelucas.moviedatabase.home.HomePresenter
 import com.guilhermelucas.moviedatabase.model.PromotionAd
 import com.guilhermelucas.moviedatabase.home.adapter.HomeAdapter
 import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterItem
 import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterViewHolder
+import com.guilhermelucas.moviedatabase.util.DeviceOrientation
 import com.guilhermelucas.moviedatabase.util.SchedulerProvider
 import io.reactivex.disposables.CompositeDisposable
 import java.net.UnknownHostException
@@ -74,6 +77,13 @@ class DetailPromotionAdPresenter(
     /*************************/
     /**   Private methods   **/
     /*************************/
+
+    private object Constants {
+        const val MAX_ITEMS_EACH_ROW_PORTRAIT = 2
+        const val MAX_ITEMS_EACH_ROW_LANDSCAPE = 3
+    }
+
+
     private fun loadItems() {
         if (!isLoading) {
             isLoading = true
@@ -98,6 +108,13 @@ class DetailPromotionAdPresenter(
             is UnknownHostException -> DetailPromotionAdContract.Error.NETWORK
             else -> DetailPromotionAdContract.Error.REQUEST_GENERIC_ERROR
         }
+    }
+
+    override fun getTotalItemsOnEachLine(): Int {
+        return if (view?.getDeviceOrientation() == DeviceOrientation.PORTRAIT)
+            Constants.MAX_ITEMS_EACH_ROW_PORTRAIT
+        else
+            Constants.MAX_ITEMS_EACH_ROW_LANDSCAPE
     }
 
 
