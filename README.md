@@ -3,7 +3,7 @@
 ## Configure
 
 To start, it's necessary create a Firebase project.
-Go to https://console.firebase.google.com/, create a new project with applicationId (com.arctouch.codechallenge). Download the generated google-services.json file and copy it to the app/ directory.
+Go to https://console.firebase.google.com/, create a new project with applicationId (com.guilhermelucas.moviedatabase). Download the generated google-services.json file and copy it to the app/ directory.
 
 ## Remote config
 
