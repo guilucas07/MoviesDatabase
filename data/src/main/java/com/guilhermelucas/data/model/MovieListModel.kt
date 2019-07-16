@@ -1,6 +1,5 @@
 package com.guilhermelucas.data.model
 
-import com.guilhermelucas.domain.Movie
 import com.squareup.moshi.Json
 import java.util.*
 

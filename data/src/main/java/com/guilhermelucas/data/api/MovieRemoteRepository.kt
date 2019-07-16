@@ -9,8 +9,6 @@ import io.reactivex.functions.BiFunction
 
 class MovieRemoteRepository(
     private val dataSource: MovieDataSource
-//    ,
-//    private val dataSourceSettings: MovieDataSourceSettings
 ) {
 
     fun getGenres(): Observable<List<Genre>> =
