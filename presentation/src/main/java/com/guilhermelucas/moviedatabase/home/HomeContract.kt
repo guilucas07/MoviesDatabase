@@ -1,6 +1,5 @@
 package com.guilhermelucas.moviedatabase.home
 
-import com.guilhermelucas.moviedatabase.model.PromotionAd
 import com.guilhermelucas.moviedatabase.base.BasePresenter
 import com.guilhermelucas.moviedatabase.base.BaseView
 import com.guilhermelucas.moviedatabase.home.adapter.HomeAdapter
@@ -12,7 +11,6 @@ interface HomeContract {
     interface View : BaseView {
         fun onLoadMovies(movies: List<AdapterItem>)
         fun goToDetail(movie: MovieVO)
-        fun goToPromotionDetail(promotionAd: PromotionAd)
         fun loading(visible: Boolean)
         fun moviesLoaded()
         fun showError(error: Error)

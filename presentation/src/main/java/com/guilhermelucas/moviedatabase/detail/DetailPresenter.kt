@@ -1,4 +1,4 @@
-package com.guilhermelucas.moviedatabase.detail.movie
+package com.guilhermelucas.moviedatabase.detail
 
 import com.guilhermelucas.data.BaseSchedulerProvider
 import com.guilhermelucas.moviedatabase.model.MovieVO

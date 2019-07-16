@@ -1,4 +1,4 @@
-package com.guilhermelucas.moviedatabase.detail.movie
+package com.guilhermelucas.moviedatabase.detail
 
 import com.guilhermelucas.moviedatabase.base.BasePresenter
 import com.guilhermelucas.moviedatabase.base.BaseView

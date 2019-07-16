@@ -28,10 +28,5 @@
         <key>backdrop_url</key>
         <value>https://image.tmdb.org/t/p/w780</value>
     </entry>
-    <entry>
-        <key>promotion_item_interval</key>
-        <value>4</value>
-    </entry>
-
 
 </defaultsMap>

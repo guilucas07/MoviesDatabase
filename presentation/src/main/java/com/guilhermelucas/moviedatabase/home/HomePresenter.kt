@@ -6,9 +6,7 @@ import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterItem
 import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterViewHolder
 import com.guilhermelucas.moviedatabase.util.DeviceOrientation
 import com.guilhermelucas.moviedatabase.util.SchedulerProvider
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import java.net.UnknownHostException
 
 class HomePresenter(
@@ -21,7 +19,6 @@ class HomePresenter(
     private var activityMode = ActivityMode.DEFAULT
     private var isLoading = false
     private var repositoryRequestStrategy = HomeRepository.RequestStrategy.FIRST_PAGE
-    private var shouldLoadPromotionAds = false
 
     /*****************************/
     /**     Private objects     **/
@@ -58,8 +55,6 @@ class HomePresenter(
         if (adapterItem != null) {
             if (adapterItem is AdapterItem.MovieItem)
                 view?.goToDetail(adapterItem.movie)
-            else if (adapterItem is AdapterItem.AdItem)
-                view?.goToPromotionDetail(adapterItem.promotionAdItem)
         }
     }
 
@@ -70,10 +65,6 @@ class HomePresenter(
     }
 
     override fun getSpanSize(adapterPosition: Int): Int {
-        if (shouldLoadPromotionAds) {
-            val adapterItem = repository.getAdapterItem(adapterPosition)
-            return if (adapterItem is AdapterItem.AdItem) getTotalItemsOnEachLine() else 1
-        }
         return 1
     }
 
@@ -88,7 +79,6 @@ class HomePresenter(
 
     override fun searchMovie(partialName: String) {
         if (partialName.length >= Constants.SEARCH_MIN_LETTERS) {
-            shouldLoadPromotionAds = false
             val disposable = repository.getMovie(partialName)
                 .observeOn(schedulers.ui())
                 .subscribeOn(schedulers.io())
@@ -118,9 +108,7 @@ class HomePresenter(
             isLoading = true
             view?.loading(isLoading)
 
-            shouldLoadPromotionAds = true
             this.repositoryRequestStrategy = repositoryRequestStrategy
-
 
             val observer =
                 repository.loadMoreData(repositoryRequestStrategy)
@@ -166,12 +154,7 @@ class HomePresenter(
     }
 
     override fun getItemViewHolder(adapterPosition: Int): HomeAdapter.ViewHolderType {
-        val item = repository.getAdapterItem(adapterPosition)
-
-        return when (item) {
-            is AdapterItem.AdItem -> HomeAdapter.ViewHolderType.AD
-            else -> HomeAdapter.ViewHolderType.MOVIE
-        }
+        return HomeAdapter.ViewHolderType.MOVIE
     }
 
     override fun getTotalItemsOnEachLine(): Int {
