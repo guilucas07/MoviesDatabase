@@ -18,6 +18,5 @@ The following variables can be changed on Firebase Remote Config
 | request_ignore_user_localization | true |
 | poster_url | https://image.tmdb.org/t/p/w154 |
 | backdrop_url | https://image.tmdb.org/t/p/w780 |
-| promotion_item_interval | 4 |
 
 - request_ignore_user_localization = When this variable is true, user localization and language will be ignored and the app only return upcoming films on Brazil and movie details are in brazilian portuguese  
