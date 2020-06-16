@@ -8,20 +8,17 @@ import com.guilhermelucas.data.api.TmdbApi
 import com.guilhermelucas.data.model.MovieDetailModel
 import com.guilhermelucas.domain.Movie
 import io.reactivex.Observable
-import io.reactivex.internal.schedulers.TrampolineScheduler
 import io.reactivex.observers.TestObserver
-import io.reactivex.subscribers.TestSubscriber
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.*
+import org.mockito.Mock
+import org.mockito.Mockito
+import org.mockito.Mockito.`when`
+import org.mockito.MockitoAnnotations
 import org.mockito.junit.MockitoJUnitRunner
-import retrofit2.Retrofit
-import java.net.UnknownHostException
-import java.text.SimpleDateFormat
 import java.util.*
-import org.mockito.Mockito.*
 
 @RunWith(MockitoJUnitRunner::class)
 class MovieRemoteRepositoryTest {

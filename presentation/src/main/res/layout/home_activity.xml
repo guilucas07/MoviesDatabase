@@ -8,8 +8,9 @@
     <androidx.appcompat.widget.Toolbar
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/toolbar"
+            android:theme="@style/SearchViewCompat"
             app:titleTextColor="@color/md_white_1000"
-            android:background="@color/md_blue_grey_800"
+            android:background="@color/md_blue_grey_500"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"/>
 

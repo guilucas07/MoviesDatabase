@@ -3,7 +3,7 @@
 ## Configure
 
 To start, it's necessary create a Firebase project.
-Go to https://console.firebase.google.com/, create a new project with applicationId (com.arctouch.codechallenge). Download the generated google-services.json file and copy it to the app/ directory.
+Go to https://console.firebase.google.com/, create a new project with applicationId (com.guilhermelucas.moviedatabase). Download the generated google-services.json file and copy it to the app/ directory.
 
 ## Remote config
 
@@ -18,6 +18,5 @@ The following variables can be changed on Firebase Remote Config
 | request_ignore_user_localization | true |
 | poster_url | https://image.tmdb.org/t/p/w154 |
 | backdrop_url | https://image.tmdb.org/t/p/w780 |
-| promotion_item_interval | 4 |
 
 - request_ignore_user_localization = When this variable is true, user localization and language will be ignored and the app only return upcoming films on Brazil and movie details are in brazilian portuguese  

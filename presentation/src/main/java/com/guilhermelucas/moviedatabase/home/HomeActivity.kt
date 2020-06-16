@@ -19,12 +19,10 @@ import com.guilhermelucas.data.api.MovieRemoteRepository
 import com.guilhermelucas.data.firebase.RemoteConfig
 import com.guilhermelucas.moviedatabase.R
 import com.guilhermelucas.moviedatabase.base.BaseActivity
-import com.guilhermelucas.moviedatabase.detail.movie.DetailActivity
-import com.guilhermelucas.moviedatabase.detail.promotion.DetailPromotionAdActivity
+import com.guilhermelucas.moviedatabase.detail.DetailActivity
 import com.guilhermelucas.moviedatabase.home.adapter.HomeAdapter
 import com.guilhermelucas.moviedatabase.home.adapter.item.AdapterItem
 import com.guilhermelucas.moviedatabase.model.MovieVO
-import com.guilhermelucas.moviedatabase.model.PromotionAd
 import com.guilhermelucas.moviedatabase.util.DeviceOrientation
 import com.guilhermelucas.moviedatabase.util.MovieImageUrlBuilder
 import kotlinx.android.synthetic.main.home_activity.*
@@ -52,12 +50,10 @@ class HomeActivity : BaseActivity(), HomeContract.View {
 
         val repository =
             HomeRepository(
-                baseContext,
                 MovieImageUrlBuilder(RemoteConfig.instance),
                 MovieRemoteRepository(
                     MovieDataSource.getInstance(MovieDataSourceSettings())
-                ),
-                RemoteConfig.instance
+                )
             )
         presenter = HomePresenter(repository)
         presenter.attachView(this)
@@ -92,13 +88,6 @@ class HomeActivity : BaseActivity(), HomeContract.View {
         startActivity(intent)
     }
 
-    override fun goToPromotionDetail(promotionAd: PromotionAd) {
-        val intent = Intent(baseContext, DetailPromotionAdActivity::class.java).apply {
-            putExtra(DetailPromotionAdActivity.ExtraParam.SERIALIZABLE_PROMOTION_AD, promotionAd)
-        }
-        startActivity(intent)
-    }
-
     override fun loading(visible: Boolean) {
         loadingMoreItems = visible
         swipeRefreshMovies.isRefreshing = visible
@@ -125,7 +114,7 @@ class HomeActivity : BaseActivity(), HomeContract.View {
         }
     }
 
-    override fun changeAdapterVisibility(visibility: HomeContract.AdapterVisibility){
+    override fun changeAdapterVisibility(visibility: HomeContract.AdapterVisibility) {
         when (visibility) {
             HomeContract.AdapterVisibility.DATA_VIEW -> {
                 layoutEmptyMovies.visibility = View.GONE

@@ -9,6 +9,11 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="SearchViewCompat" parent="AppTheme">
+        <item name="android:editTextColor">@color/md_white_1000</item>
+        <item name="android:textColorHint">@color/md_white_1000</item>
+    </style>
+
     <style name="Text.Body" parent="AppTheme">
         <item name="android:textColor">@color/md_black_1000</item>
         <item name="android:fontFamily">sans-serif</item>

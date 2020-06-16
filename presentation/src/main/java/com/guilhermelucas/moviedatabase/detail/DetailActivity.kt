@@ -1,4 +1,4 @@
-package com.guilhermelucas.moviedatabase.detail.movie
+package com.guilhermelucas.moviedatabase.detail
 
 import android.content.Intent
 import android.os.Bundle
@@ -14,8 +14,6 @@ import com.guilhermelucas.moviedatabase.util.MovieImageUrlBuilder
 import com.guilhermelucas.moviedatabase.util.loadFromUrl
 import com.guilhermelucas.moviedatabase.viewer.ImageViewer
 import kotlinx.android.synthetic.main.detail_activity.*
-import java.text.DateFormat
-import java.util.*
 
 class DetailActivity : BaseActivity(), DetailContract.View {
 

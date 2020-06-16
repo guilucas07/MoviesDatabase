@@ -22,7 +22,7 @@
                     android:resource="@xml/home_searchable"/>
         </activity>
         <activity
-                android:name=".detail.movie.DetailActivity"/>
+                android:name=".detail.DetailActivity"/>
         <activity
                 android:name=".viewer.ImageViewer"
                 android:theme="@style/Theme.AppCompat.NoActionBar"/>

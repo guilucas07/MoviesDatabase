@@ -65,7 +65,4 @@ class RemoteConfig private constructor() {
         return remoteConfig.getString(FirebaseKeys.BACKDROP_URL)
     }
 
-    fun getPromotionItemInterval(): Long {
-        return remoteConfig.getLong(FirebaseKeys.PROMOTION_ITEM_INTERVAL)
-    }
 }
